@@ -106,7 +106,7 @@ function App() {
         'func': 'parentFunc',
         'message': 'Redirecting...'
       }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:9000");
-      // }, "http://localhost:3000");
+      // }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000");
     }
   },[prompt])
 

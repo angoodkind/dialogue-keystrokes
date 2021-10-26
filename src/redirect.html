@@ -8,11 +8,12 @@
         
     </head>
     <body>
-      <!-- Load the actual React page that will be running on localhost:3000 on the AWS EC2 instance through an iframe. -->
+      <!-- Load the actual React page that will be running on ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000 on the AWS EC2 instance through an iframe. -->
       <!-- That is where the actual study is - we are using this html page to use JATOS functions only -->
-      <!-- "http://localhost:3000" -->
+      <!-- "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000" -->
       <iframe id="iframe"
         id="experiment"
+        enablejsapi=1
         src="http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000"
         style="
           position: fixed;
