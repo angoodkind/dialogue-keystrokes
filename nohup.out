@@ -1,0 +1,27 @@
+
+> frontend@0.1.0 start
+> react-scripts start
+
+Something is already running on port 3000.
+
+> frontend@0.1.0 start
+> react-scripts start
+
+[34mℹ[39m [90m｢wds｣[39m: Project is running at http://172.31.29.63/
+[34mℹ[39m [90m｢wds｣[39m: webpack output is served from 
+[34mℹ[39m [90m｢wds｣[39m: Content not from webpack is served from /home/ec2-user/keystrokes-collablab/public
+[34mℹ[39m [90m｢wds｣[39m: 404s will fallback to /
+Starting the development server...
+
+Compiled with warnings.
+
+src/App.js
+  Line 180:5:  React Hook useEffect has missing dependencies: 'experiment', 'prompt', and 'subject'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  Line 240:5:  React Hook useEffect has a missing dependency: 'sentTime'. Either include it or remove the dependency array                               react-hooks/exhaustive-deps
+  Line 249:5:  React Hook useEffect has a missing dependency: 'sendMessage'. Either include it or remove the dependency array                            react-hooks/exhaustive-deps
+  Line 275:5:  React Hook useEffect has a missing dependency: 'expDate'. Either include it or remove the dependency array                                react-hooks/exhaustive-deps
+  Line 283:5:  React Hook useEffect has a missing dependency: 'expDate'. Either include it or remove the dependency array                                react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
