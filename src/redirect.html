@@ -32,6 +32,12 @@
 
       <!-- This script is listening for the event that prompt >= 4 on the iframe so it knows to end the study. -->
       <script>
+
+        function parentFunc(message) {
+            alert(message);
+            jatos.endStudyAndRedirect("https://google.com");
+        }
+        
         function getProlific(message) {
            console.log("AHHH");
           }
@@ -61,10 +67,7 @@
           }  
         }
 
-        function parentFunc(message) {
-            alert(message);
-            jatos.endStudyAndRedirect("https://google.com");
-        }
+        
       </script>
     </body>
 </html>
