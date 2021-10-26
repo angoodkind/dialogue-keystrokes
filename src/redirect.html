@@ -10,10 +10,10 @@
     <body>
       <!-- Load the actual React page that will be running on localhost:3000 on the AWS EC2 instance through an iframe. -->
       <!-- That is where the actual study is - we are using this html page to use JATOS functions only -->
-      <!-- "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000" -->
+      <!-- "http://localhost:3000" -->
       <iframe id="iframe"
         id="experiment"
-        src="http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000"
+        src="http://localhost:3000"
         style="
           position: fixed;
           top: 0px;
@@ -33,21 +33,17 @@
       <!-- This script is listening for the event that prompt >= 4 on the iframe so it knows to end the study. -->
       <script>
 
-        function parentFunc(message) {
-            alert(message);
-            jatos.endStudyAndRedirect("https://google.com");
-        }
-        
         function getProlific(message) {
-           console.log("AHHH");
-          }
+           console.log("Test");
+        }
+
           // get url parameters
         jatos.onLoad(() => {
           console.log("Done loading");
           document.getElementById('iframe').contentWindow.postMessage({
           'func': 'getProlific',
           'message': JSON.stringify(jatos.batchId),
-          }, 'http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000');
+          }, 'http://localhost:3000');
         });
 
         if (window.addEventListener) {
@@ -60,13 +56,16 @@
         function onMessage(event) {
             // Check sender origin to be trusted
             console.log(event.origin);
-            if (event.origin !== "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000") return;
+            if (event.origin !== "http://localhost:3000") return;
             var data = event.data;
             if (typeof(window[data.func]) == "function") {
                 window[data.func].call(null, data.message);
           }  
         }
 
+        function parentFunc(message) {
+            jatos.endStudyAndRedirect("https://google.com");
+        }
         
       </script>
     </body>
