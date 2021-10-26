@@ -19,7 +19,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Open a connection to the socket.io server 
-const socket = openSocket('http://localhost:8080', {rejectUnauthorized: false, transports: ['websocket']});
+const socket = openSocket('http://ec2-3-144-169-46..us-east-2.compute.amazonaws.com:8080', {rejectUnauthorized: false, transports: ['websocket']});
 
 // This is the App that will be rendered by React in index.js.
 function App() {
@@ -62,7 +62,7 @@ function App() {
     // Check sender origin to be trusted
     // console.log("YEEHAW");
     // console.log(event.origin);
-    if (event.origin !== "http://localhost:9000") return;
+    if (event.origin !== "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:9000") return;
     setProlific(event.data.message);
   }
 
@@ -78,7 +78,7 @@ function App() {
         alert('5 minutes remaining!');
       }
       // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 3000)
+    }, 2000)
     const timer = setTimeout(() => {
       if (prompt < 4) {
         // When the time is up, increment the prompt state variable.
@@ -86,7 +86,7 @@ function App() {
         alert(`Moving on to the next prompt!`);
       }
       // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 5000);
+    }, 3000);
     return () => {
       clearTimeout(timer);
       clearTimeout(warning);
@@ -107,7 +107,7 @@ function App() {
       window.parent.postMessage({
         'func': 'parentFunc',
         'message': 'Redirecting...'
-      }, "http://localhost:9000");
+      }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:9000");
       // }, "http://localhost:3000");
     }
   },[prompt])
