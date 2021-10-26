@@ -19,7 +19,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Open a connection to the socket.io server 
-const socket = openSocket('http://ec2-3-144-169-46..us-east-2.compute.amazonaws.com:8080', {rejectUnauthorized: false, transports: ['websocket']});
+const socket = openSocket('http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:8080', {rejectUnauthorized: false, transports: ['websocket']});
 
 // This is the App that will be rendered by React in index.js.
 function App() {
