@@ -13,7 +13,7 @@
       <!-- "http://localhost:3000" -->
       <iframe id="iframe"
         id="experiment"
-        src="http://localhost:3000"
+        src="http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000"
         style="
           position: fixed;
           top: 0px;
@@ -43,7 +43,7 @@
           document.getElementById('iframe').contentWindow.postMessage({
           'func': 'getProlific',
           'message': JSON.stringify(jatos.batchId),
-          }, 'http://localhost:3000');
+          }, 'http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000');
         });
 
         if (window.addEventListener) {
@@ -56,7 +56,7 @@
         function onMessage(event) {
             // Check sender origin to be trusted
             console.log(event.origin);
-            if (event.origin !== "http://localhost:3000") return;
+            if (event.origin !== "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000") return;
             var data = event.data;
             if (typeof(window[data.func]) == "function") {
                 window[data.func].call(null, data.message);
