@@ -60,6 +60,7 @@ function App() {
 
   useEffect(()=> {
     if (prompt >= constants.prompts.length) {
+      console.log('Done with prompts');
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
