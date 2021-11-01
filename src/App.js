@@ -74,7 +74,7 @@ function App() {
       if (prompt < 4) {
         // When the time is up, increment the prompt state variable.
         setPrompt(prompt + 1);
-        alert(`Moving on to the next prompt!`);
+        // alert(`Moving on to the next prompt!`);
       }
       // Change this number to make the alert trigger after a delay of x seconds. 
     }, 1000);
@@ -98,7 +98,7 @@ function App() {
       window.parent.postMessage({
         'func': 'parentFunc',
         'message': 'Redirecting...'
-      }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:9000");
+      }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000");
       // }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000");
     }
   },[prompt])
