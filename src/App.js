@@ -14,20 +14,11 @@ const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: fals
 // This is the App that will be rendered by React in index.js.
 function App() {
   
-  // This is the array of prompts that will be displayed to the experiment subjects.
-  // The first prompt should be the first element of the array, and so on.
-  const prompts = [
-      `prompt 1`,
-      `prompt 2`,
-      'prompt 3',
-      `Done done done`
-  ]
-  
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
   const [room, setRoom] = useState();
   const [message, setMessage] = useState("");
-  const [prompt, setPrompt] = useState(1);
+  const [prompt, setPrompt] = useState(0);
   const [experiment, setExperiment] = useState(null);
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
@@ -53,31 +44,22 @@ function App() {
 
 
   useEffect(()=> {
-    // Code will run after the miliseconds specified by the setTimeout's second arg.
-    // const warning = setTimeout(() => {
-    //   if (prompt < 4) {
-    //     alert('5 minutes remaining!');
-    //   }
-    //   // Change this number to make the alert trigger after a delay of x seconds. 
-    // }, 2000)
     const timer = setTimeout(() => {
-      if (prompt < 4) {
+      if (prompt < constants.prompts.length-1) {
         // When the time is up, increment the prompt state variable.
         setPrompt(prompt + 1);
-        // alert(`Moving on to the next prompt!`);
       }
-      // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 5000);
+      // Time length of prompt 
+    }, constants.prompts[prompt].promptTime);
     return () => {
       clearTimeout(timer);
-      // clearTimeout(warning);
     };
     // The warning and timer Timeout(s) will run once every time the prompt changes.
   },[prompt])
 
 
   useEffect(()=> {
-    if (prompt >= 4) {
+    if (prompt == constants.prompts.length) {
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
@@ -118,9 +100,9 @@ function App() {
       }
       if (experiment != null) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + experiment + '/prompt' + prompt + '/subject' +  subject + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + experiment + '/prompt' + prompt + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -138,7 +120,7 @@ function App() {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
 
-        firebase.database().ref('prod/' + experiment + '/prompt' + prompt + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -153,7 +135,7 @@ function App() {
   useEffect(()=> {
     if (sends != null && sends.from === subject) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + experiment + '/prompt' + prompt + '/subject' + subject + '/sends').push(sends)
+      firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
     }
   },[sends])
 
@@ -286,7 +268,7 @@ function App() {
       </div>
       <div className="prompt">
         {/* Display the prompt based on which prompt you're on: */}
-        <div style={{margin: "50px"}}>{prompts[prompt - 1]}</div>
+        <div style={{margin: "50px"}}>{constants.prompts[prompt].promptText}</div>
       </div>
     </div>
   );
