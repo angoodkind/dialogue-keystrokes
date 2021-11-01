@@ -17,5 +17,7 @@ export const prompts = [
     {promptNum:1, promptText:`Prompt 1`, promptTime:10000},
     {promptNum:2, promptText:`Prompt 2`, promptTime:10000},
     {promptNum:2, promptText:`warning2`, promptTime:3000},
-    {promptNum:2, promptText:`Prompt 2`, promptTime:10000}
+    {promptNum:2, promptText:`Prompt 2`, promptTime:10000},
+    {promptNum:3, promptText:`Finished...redirecting`, promptTime:3000},
+    {promptNum:3, promptText:`Finished...redirecting`, promptTime:3000}
   ]
