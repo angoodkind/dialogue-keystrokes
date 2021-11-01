@@ -59,7 +59,7 @@ function App() {
 
 
   useEffect(()=> {
-    if (prompt == constants.prompts.length) {
+    if (prompt >= constants.prompts.length) {
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
