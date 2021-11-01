@@ -8,13 +8,13 @@
         
     </head>
     <body>
-      <!-- Load the actual React page that will be running on ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000 on the AWS EC2 instance through an iframe. -->
+      <!-- Load the actual React page that will be running on ec2-18-223-160-60.us-east-2.compute.amazonaws.com:3000 on the AWS EC2 instance through an iframe. -->
       <!-- That is where the actual study is - we are using this html page to use JATOS functions only -->
-      <!-- "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000" -->
+      <!-- "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:3000" -->
       <iframe id="iframe"
         id="experiment"
         enablejsapi=1
-        src="http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000"
+        src="http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:3000"
         style="
           position: fixed;
           top: 0px;
@@ -44,7 +44,7 @@
           document.getElementById('iframe').contentWindow.postMessage({
           'func': 'getProlific',
           'message': JSON.stringify(jatos.batchId),
-          }, 'http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000');
+          }, 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:3000');
         });
 
         if (window.addEventListener) {
@@ -57,7 +57,7 @@
         function onMessage(event) {
             // Check sender origin to be trusted
             console.log(event.origin);
-            if (event.origin !== "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000") return;
+            if (event.origin !== "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:3000") return;
             var data = event.data;
             if (typeof(window[data.func]) == "function") {
                 window[data.func].call(null, data.message);
