@@ -20,7 +20,7 @@ function App() {
       `prompt 1`,
       `prompt 2`,
       'prompt 3',
-      `Finished`
+      `Done done done`
   ]
   
   // These are React variables that control the state of the app. 
@@ -43,7 +43,7 @@ function App() {
 
   function onMessage(event) {
     // Check sender origin to be trusted
-    if (event.origin !== "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:9000") return;
+    if (event.origin !== `${constants.ec2Base}:9000`) return;
     setProlific(event.data.message);
   }
 
