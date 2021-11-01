@@ -3,23 +3,13 @@ import openSocket from 'socket.io-client';
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import * as constants from './constants';
 
 // Must configure firebase before using its services
-const firebaseConfig = {
-
-  apiKey: "AIzaSyBWJmpNZvlexkgSRvCi9IGe4ZZFGgaE9sc",
-  authDomain: "keystroke-dialogue.firebaseapp.com",
-  projectId: "keystroke-dialogue",
-  storageBucket: "keystroke-dialogue.appspot.com",
-  messagingSenderId: "258869565916",
-  appId: "1:258869565916:web:a5388f1b8ec7ee25709719"
-};
-
-
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(constants.firebaseConfig);
 
 // Open a connection to the socket.io server 
-const socket = openSocket('http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:8080', {rejectUnauthorized: false, transports: ['websocket']});
+const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
 // This is the App that will be rendered by React in index.js.
 function App() {
@@ -91,15 +81,10 @@ function App() {
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
-      // window.parent.postMessage({
-      //   'func': 'parentFunc',
-      //   'message': 'Redirecting...'
-      // }, "http://ec2-3-144-17-64.us-east-2.compute.amazonaws.com:9000");
       window.parent.postMessage({
         'func': 'parentFunc',
         'message': 'Redirecting...'
       }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
-      // }, "http://ec2-3-144-169-46.us-east-2.compute.amazonaws.com:3000");
     }
   },[prompt])
 
