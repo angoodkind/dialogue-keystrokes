@@ -27,14 +27,7 @@ function App() {
   // This is the array of prompts that will be displayed to the experiment subjects.
   // The first prompt should be the first element of the array, and so on.
   const prompts = [
-    `[Subject1] has had a long week at work, 
-      and would like to relax and watch a movie to unwind. 
-      [Subject2], what movie or movies would you recommend and why?
-      Feel free to get to know each other, your tastes in movies, 
-      and discuss why you’ve recommended these movies. 
-      Do not hesitate to express opinions, 
-      for example about what you like or don’t like about certain movies or movie genres, 
-      or certain actors and actresses.`,
+      `prompt 1`,
       `prompt 2`,
       'prompt 3',
       `Finished`
@@ -71,12 +64,12 @@ function App() {
 
   useEffect(()=> {
     // Code will run after the miliseconds specified by the setTimeout's second arg.
-    const warning = setTimeout(() => {
-      if (prompt < 4) {
-        alert('5 minutes remaining!');
-      }
-      // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 2000)
+    // const warning = setTimeout(() => {
+    //   if (prompt < 4) {
+    //     alert('5 minutes remaining!');
+    //   }
+    //   // Change this number to make the alert trigger after a delay of x seconds. 
+    // }, 2000)
     const timer = setTimeout(() => {
       if (prompt < 4) {
         // When the time is up, increment the prompt state variable.
@@ -84,10 +77,10 @@ function App() {
         alert(`Moving on to the next prompt!`);
       }
       // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 3000);
+    }, 1000);
     return () => {
       clearTimeout(timer);
-      clearTimeout(warning);
+      // clearTimeout(warning);
     };
     // The warning and timer Timeout(s) will run once every time the prompt changes.
   },[prompt])
