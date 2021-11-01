@@ -67,7 +67,7 @@ function App() {
         // alert(`Moving on to the next prompt!`);
       }
       // Change this number to make the alert trigger after a delay of x seconds. 
-    }, 1000);
+    }, 5000);
     return () => {
       clearTimeout(timer);
       // clearTimeout(warning);
@@ -240,15 +240,15 @@ function App() {
   }
 
   // time-stamp at beginning of experiment
-  const d = new Date();
-  // const expDate = d.toLocaleString().replace(/\//g,'-').replace(',','').replaceAll(' ','_');
+  const d = new Date();  
   const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+  const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
 
   useEffect(()=> {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(expDate+`-`+JSON.stringify(data));
+      setExperiment(expDate+`-`+expTime+`-`+JSON.stringify(data));
     })
   },[])
 
@@ -256,7 +256,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(expDate+`-`+JSON.stringify(data));
+      setExperiment(expDate+`-`+expTime+`-`+JSON.stringify(data));
     })
   },[])
 
