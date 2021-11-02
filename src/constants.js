@@ -11,6 +11,8 @@ export const firebaseConfig = {
 export const ec2Base = 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com'
 
 // This is the array of prompts that will be displayed to the experiment subjects.
+// The 'Finished...' prompts are so that the 2nd half of the 2nd prompt will show for the
+// alotted period of time
 export const prompts = [
     {promptNum:1, promptText:`Prompt 1`, promptTime:10000},
     {promptNum:1, promptText:`warning1`, promptTime:3000},
