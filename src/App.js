@@ -235,13 +235,13 @@ function App() {
     })
   },[])
 
-  useEffect(() => {
-    // If the client is the second member in their room, get the firebase Node that was already initialized.
-    socket.on('getNode', (data) => {
-      console.log("getNode", data);
-      setExperiment(expDate+`_`+expTime+`-`+JSON.stringify(data));
-    })
-  },[])
+  // useEffect(() => {
+  //   // If the client is the second member in their room, get the firebase Node that was already initialized.
+  //   socket.on('getNode', (data) => {
+  //     console.log("getNode", data);
+  //     setExperiment(expDate+`_`+expTime+`-`+JSON.stringify(data));
+  //   })
+  // },[])
 
   useEffect(()=> {
     console.log("Experiment:", experiment)
