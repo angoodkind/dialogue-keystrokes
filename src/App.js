@@ -226,22 +226,23 @@ function App() {
   const d = new Date();  
   const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
   const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+  const expNode = expDate+`_`+expTime;
 
   useEffect(()=> {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(expDate+`_`+expTime+`-`+JSON.stringify(data));
+      setExperiment(expNode+`-`+JSON.stringify(data));
     })
   },[])
 
-  // useEffect(() => {
-  //   // If the client is the second member in their room, get the firebase Node that was already initialized.
-  //   socket.on('getNode', (data) => {
-  //     console.log("getNode", data);
-  //     setExperiment(expDate+`_`+expTime+`-`+JSON.stringify(data));
-  //   })
-  // },[])
+  useEffect(() => {
+    // If the client is the second member in their room, get the firebase Node that was already initialized.
+    socket.on('getNode', (data) => {
+      console.log("getNode", data);
+      setExperiment(expNode+`-`+JSON.stringify(data));
+    })
+  },[])
 
   useEffect(()=> {
     console.log("Experiment:", experiment)
