@@ -11,14 +11,14 @@ firebase.initializeApp(constants.firebaseConfig);
 // Open a connection to the socket.io server 
 const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
+// time-stamp at beginning of experiment
+const d = new Date();  
+const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+const expNode = expDate+`_`+expTime;
+
 // This is the App that will be rendered by React in index.js.
 function App() {
-
-  // time-stamp at beginning of experiment
-  const d = new Date();  
-  const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-  const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-  const expNode = expDate+`_`+expTime;
   
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
