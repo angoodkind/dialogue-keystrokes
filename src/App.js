@@ -234,19 +234,18 @@ function App() {
     }
   }
 
-
-
-
+  // end study and redrect
   useEffect(()=> {
     if (prompt >= constants.prompts.length-1) {
       console.log('Done with prompts');
+      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8";
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
-      window.parent.postMessage({
-        'func': 'parentFunc',
-        'message': 'Redirecting...'
-      }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
+      // window.parent.postMessage({
+      //   'func': 'parentFunc',
+      //   'message': 'Redirecting...'
+      // }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
     }
   },[prompt])
 
