@@ -56,7 +56,7 @@ function App() {
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
       setRoom(data.room);
-      // setExperimentDateTime(expNode);
+      setExperimentDateTime(data.expDT);
     });
   },[])
 
