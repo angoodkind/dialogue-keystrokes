@@ -23,6 +23,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
+  const [expName, setExpName] = useState();
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -57,7 +58,8 @@ function App() {
       console.log(`I'm connected with the back-end in room ${data.room}`);
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
-      setRoom(expNode+`-`+JSON.stringify(data.room));
+      setRoom(data.room);
+      setExpName(expNode+`-`+JSON.stringify(data));
     });
   },[])
 
@@ -66,7 +68,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(room);
+      setExperiment(expName);
     })
   },[])
 
@@ -74,7 +76,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(room);
+      setExperiment(expName);
     })
   },[])
 
