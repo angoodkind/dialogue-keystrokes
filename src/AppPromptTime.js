@@ -174,44 +174,44 @@ function AppPromptTime() {
 //     element.scrollTop = element.scrollHeight;
 //   }
 
-//   useEffect(() => { 
-//     if (subject != null) {
-//       socket.on("message", (result) => {
-//         console.log(`result.user: ${result.user}`);
-//         console.log(`subject number: ${subject}`);
-//         console.log("received: ", Date.now())
-//         const data = {
-//           "from": result.user,
-//           "timeSent": sentTime,
-//           "timeReceived": Date.now(),
-//           "message": result.data
-//         }
-//         setSends(data);
-//         // When the socket receives a message, it has to know if this message was sent by
-//         // a different client or itself.
-//         // Based on the identity of the sender it will render an appropriately styled chat box
-//         // Controlled by CSS classes.
-//         if (result.user === subject) {
-//           console.log("same")
-//           document.getElementById('messages').innerHTML += 
-//           ` 
-//             <div class="o-out band">
-//               <div class="o-in message">${result.data}</div>
-//             </div>
-//           `
-//         } else {
-//           console.log("different")
-//           document.getElementById('messages').innerHTML += 
-//           ` 
-//             <div class="m-out band">
-//               <div class="m-in message">${result.data}</div>
-//             </div>
-//           `
-//         }
-//         updateScroll();
-//       })
-//     }
-//   },[subject])
+  useEffect(() => { 
+    if (subject != null) {
+      socket.on("message", (result) => {
+        // console.log(`result.user: ${result.user}`);
+        // console.log(`subject number: ${subject}`);
+        // console.log("received: ", Date.now())
+        const data = {
+          "from": result.user,
+          "timeSent": sentTime,
+          "timeReceived": Date.now(),
+          "message": result.data
+        }
+        setSends(data);
+        // When the socket receives a message, it has to know if this message was sent by
+        // a different client or itself.
+        // Based on the identity of the sender it will render an appropriately styled chat box
+        // Controlled by CSS classes.
+        if (result.user === subject) {
+          console.log("same")
+          document.getElementById('messages').innerHTML += 
+          ` 
+            <div class="o-out band">
+              <div class="o-in message">${result.data}</div>
+            </div>
+          `
+        } else {
+          console.log("different")
+          document.getElementById('messages').innerHTML += 
+          ` 
+            <div class="m-out band">
+              <div class="m-in message">${result.data}</div>
+            </div>
+          `
+        }
+        updateScroll();
+      })
+    }
+  },[subject])
 
   useEffect(()=> {
     // This is the enter button that sends a message.
@@ -240,13 +240,6 @@ function AppPromptTime() {
     if (prompt >= constants.prompts.length-1) {
       console.log('Done with prompts');
       window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
-      // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
-      // Which will redirect the user to Prolific's page and end the study.
-      // The code logic for the redirect can be found in ./redirect.html. 
-      // window.parent.postMessage({
-      //   'func': 'parentFunc',
-      //   'message': 'Redirecting...'
-      // }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
     }
   },[prompt])
 
