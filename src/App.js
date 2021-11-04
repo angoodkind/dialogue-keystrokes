@@ -13,6 +13,12 @@ const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: fals
 
 // This is the App that will be rendered by React in index.js.
 function App() {
+
+  // time-stamp at beginning of experiment
+  const d = new Date();  
+  const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+  const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+  const expNode = expDate+`_`+expTime;
   
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
@@ -23,7 +29,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [experimentDateTime, setExperimentDateTime] = useState("");
+  const [experimentDateTime, setExperimentDateTime] = useState(expNode);
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -39,16 +45,6 @@ function App() {
     setProlific(event.data.message);
   }
 
-  // useEffect(() => {
-  //   console.log("prolific: ", prolific);
-  // },[prolific])
-
-    // time-stamp at beginning of experiment
-    const d = new Date();  
-    const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-    const expNode = expDate+`_`+expTime;
-
    // Set up the socket in a useEffect with nothing in the dependency array,
   // to avoid setting up multiple connections.
   useEffect(() => {
@@ -59,7 +55,7 @@ function App() {
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
       setRoom(data.room);
-      setExperimentDateTime(expNode);
+      // setExperimentDateTime(expNode);
     });
   },[])
 
