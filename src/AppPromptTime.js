@@ -9,7 +9,7 @@ import * as constants from './constants';
 // firebase.initializeApp(constants.firebaseConfig);
 
 // Open a connection to the socket.io server 
-// const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
+const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
 // time-stamp at beginning of experiment
 const d = new Date();  
@@ -45,7 +45,7 @@ function AppPromptTime() {
     setProlific(event.data.message);
   }
 
-   // Set up the socket in a useEffect with nothing in the dependency array,
+  // Set up the socket in a useEffect with nothing in the dependency array,
   // to avoid setting up multiple connections.
   useEffect(() => {
     socket.once('connection', (data) => {
