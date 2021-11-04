@@ -23,7 +23,6 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [expName, setExpName] = useState();
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -59,7 +58,6 @@ function App() {
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
       setRoom(data.room);
-      setExpName(expNode+`-`+JSON.stringify(data));
     });
   },[])
 
@@ -68,7 +66,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(expName);
+      setExperiment(expNode+`-`+JSON.stringify(data));
     })
   },[])
 
@@ -76,7 +74,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(expName);
+      setExperiment(expNode+`-`+JSON.stringify(data));
     })
   },[])
 
@@ -240,7 +238,7 @@ function App() {
   useEffect(()=> {
     if (prompt >= constants.prompts.length-1) {
       console.log('Done with prompts');
-      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8";
+      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
       // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
       // Which will redirect the user to Prolific's page and end the study.
       // The code logic for the redirect can be found in ./redirect.html. 
