@@ -49,6 +49,7 @@ function App() {
   // to avoid setting up multiple connections.
   useEffect(() => {
     socket.once('connection', (data) => {
+      console.log("data",JSON.stringify(data));
       console.log("My ID:", socket.id);
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
@@ -249,10 +250,7 @@ function App() {
     }
   },[prompt])
 
-  // useEffect(()=> {
-  //   console.log("Experiment:", experiment)
-  // },[experiment])
-
+  
   // This is the JSX (React's version of HTML) structure of the chat interface
   return (
     // There will never be 3 people in a room.
