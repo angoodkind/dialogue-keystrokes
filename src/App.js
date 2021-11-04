@@ -11,11 +11,11 @@ firebase.initializeApp(constants.firebaseConfig);
 // Open a connection to the socket.io server 
 const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
-// // time-stamp at beginning of experiment
-// const d = new Date();  
-// const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-// const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-// const expNode = expDate+`_`+expTime;
+// time-stamp at beginning of experiment
+const d = new Date();  
+const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+const expNode = expDate+`_`+expTime;
 
 // This is the App that will be rendered by React in index.js.
 function App() {
@@ -29,7 +29,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [experimentDateTime, setExperimentDateTime] = useState("");
+  // const [experimentDateTime, setExperimentDateTime] = useState("");
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -56,7 +56,7 @@ function App() {
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
       setRoom(data.room);
-      setExperimentDateTime(data.expDT);
+      // setExperimentDateTime(data.expDT);
     });
   },[])
 
@@ -65,8 +65,8 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      console.log("expDate",experimentDateTime)
-      setExperiment(experimentDateTime+`-`+JSON.stringify(data));
+      // console.log("expDate",experimentDateTime)
+      setExperiment(expDate+`-`+JSON.stringify(data));
     })
   },[])
 
@@ -74,8 +74,8 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      console.log("expDate",experimentDateTime)
-      setExperiment(experimentDateTime+`-`+JSON.stringify(data));
+      // console.log("expDate",experimentDateTime)
+      setExperiment(expDate+`-`+JSON.stringify(data));
     })
   },[])
 
