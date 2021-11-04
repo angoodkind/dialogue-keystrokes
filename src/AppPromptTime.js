@@ -18,7 +18,7 @@ const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
 const expNode = expDate+`_`+expTime;
 
 // This is the App that will be rendered by React in index.js.
-function App() {
+function AppPromptTime() {
   
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
@@ -279,4 +279,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppPromptTime;
