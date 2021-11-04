@@ -208,7 +208,7 @@ function AppPromptTime() {
             </div>
           `
         }
-        updateScroll();
+        // updateScroll();
       })
     }
   },[subject])
