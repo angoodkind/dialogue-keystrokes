@@ -57,7 +57,7 @@ function App() {
       console.log(`I'm connected with the back-end in room ${data.room}`);
       alert("You are Subject "+data.count);
       setSubject(data.count + 1);
-      setRoom(data.room);
+      setRoom(expNode+`-`+JSON.stringify(data.room));
     });
   },[])
 
@@ -66,7 +66,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(expNode+`-`+JSON.stringify(data));
+      setExperiment(room);
     })
   },[])
 
@@ -74,7 +74,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(expNode+`-`+JSON.stringify(data));
+      setExperiment(room);
     })
   },[])
 
