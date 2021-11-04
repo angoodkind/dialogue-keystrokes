@@ -38,9 +38,45 @@ function App() {
     setProlific(event.data.message);
   }
 
+  // useEffect(() => {
+  //   console.log("prolific: ", prolific);
+  // },[prolific])
+
+    // time-stamp at beginning of experiment
+    const d = new Date();  
+    const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+    const expNode = expDate+`_`+expTime;
+
+   // Set up the socket in a useEffect with nothing in the dependency array,
+  // to avoid setting up multiple connections.
   useEffect(() => {
-    console.log("prolific: ", prolific);
-  },[prolific])
+    socket.once('connection', (data) => {
+      console.log("My ID:", socket.id);
+      console.log("my index:", data.count);
+      console.log(`I'm connected with the back-end in room ${data.room}`);
+      alert("You are Subject "+data.count);
+      setSubject(data.count + 1);
+      setRoom(data.room);
+    });
+  },[])
+
+
+  useEffect(()=> {
+    // If the client is the first member in their room, initialize a firebase Node for the room to write to.
+    socket.on('setNode', (data) => {
+      console.log("setNode", data);
+      setExperiment(expNode+`-`+JSON.stringify(data));
+    })
+  },[])
+
+  useEffect(() => {
+    // If the client is the second member in their room, get the firebase Node that was already initialized.
+    socket.on('getNode', (data) => {
+      console.log("getNode", data);
+      setExperiment(expNode+`-`+JSON.stringify(data));
+    })
+  },[])
 
 
   useEffect(()=> {
@@ -58,31 +94,7 @@ function App() {
   },[prompt])
 
 
-  useEffect(()=> {
-    if (prompt >= constants.prompts.length-1) {
-      console.log('Done with prompts');
-      // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
-      // Which will redirect the user to Prolific's page and end the study.
-      // The code logic for the redirect can be found in ./redirect.html. 
-      window.parent.postMessage({
-        'func': 'parentFunc',
-        'message': 'Redirecting...'
-      }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
-    }
-  },[prompt])
-
-  // Set up the socket in a useEffect with nothing in the dependency array,
-  // to avoid setting up multiple connections.
-  useEffect(() => {
-    socket.once('connection', (data) => {
-      console.log("My ID:", socket.id);
-      console.log("my index:", data.count);
-      console.log(`I'm connected with the back-end in room ${data.room}`);
-      alert("You are Subject "+data.count);
-      setSubject(data.count + 1);
-      setRoom(data.room);
-    });
-  },[])
+ 
   
   // The keystrokes variable is how we will store the write location on keydowns
   // and write to the same location on key ups.
@@ -222,31 +234,25 @@ function App() {
     }
   }
 
-  // time-stamp at beginning of experiment
-  const d = new Date();  
-  const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-  const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-  const expNode = expDate+`_`+expTime;
+
+
 
   useEffect(()=> {
-    // If the client is the first member in their room, initialize a firebase Node for the room to write to.
-    socket.on('setNode', (data) => {
-      console.log("setNode", data);
-      setExperiment(expNode+`-`+JSON.stringify(data));
-    })
-  },[])
+    if (prompt >= constants.prompts.length-1) {
+      console.log('Done with prompts');
+      // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
+      // Which will redirect the user to Prolific's page and end the study.
+      // The code logic for the redirect can be found in ./redirect.html. 
+      window.parent.postMessage({
+        'func': 'parentFunc',
+        'message': 'Redirecting...'
+      }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
+    }
+  },[prompt])
 
-  useEffect(() => {
-    // If the client is the second member in their room, get the firebase Node that was already initialized.
-    socket.on('getNode', (data) => {
-      console.log("getNode", data);
-      setExperiment(expNode+`-`+JSON.stringify(data));
-    })
-  },[])
-
-  useEffect(()=> {
-    console.log("Experiment:", experiment)
-  },[experiment])
+  // useEffect(()=> {
+  //   console.log("Experiment:", experiment)
+  // },[experiment])
 
   // This is the JSX (React's version of HTML) structure of the chat interface
   return (
