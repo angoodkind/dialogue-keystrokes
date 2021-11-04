@@ -23,7 +23,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [experimentDateTime, setExperimentDateTime] = useState(null);
+  const [experimentDateTime, setExperimentDateTime] = useState();
 
   // Get all jatos related variables here
   if (window.addEventListener) {
