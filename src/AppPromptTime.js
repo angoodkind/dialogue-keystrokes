@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import openSocket from 'socket.io-client';
-import './App.css';
+// import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import * as constants from './constants';
