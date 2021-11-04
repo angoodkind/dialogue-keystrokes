@@ -11,11 +11,11 @@ firebase.initializeApp(constants.firebaseConfig);
 // Open a connection to the socket.io server 
 const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
-// time-stamp at beginning of experiment
-const d = new Date();  
-const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-const expNode = expDate+`_`+expTime;
+// // time-stamp at beginning of experiment
+// const d = new Date();  
+// const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+// const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+// const expNode = expDate+`_`+expTime;
 
 // This is the App that will be rendered by React in index.js.
 function App() {
@@ -29,7 +29,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [experimentDateTime, setExperimentDateTime] = useState(expNode);
+  const [experimentDateTime, setExperimentDateTime] = useState("");
 
   // Get all jatos related variables here
   if (window.addEventListener) {
