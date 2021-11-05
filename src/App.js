@@ -97,7 +97,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(experimentNodeName+`-`+JSON.stringify(data.room));
+      setExperiment(experimentNodeName);
     })
   },[])
 
@@ -105,7 +105,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(experimentNodeName+`-`+JSON.stringify(data.room));
+      setExperiment(experimentNodeName);
     })
   },[])
 
