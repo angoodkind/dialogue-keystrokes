@@ -6,6 +6,7 @@ import 'firebase/database';
 import * as constants from './constants';
 import $ from "jquery";
 import 'jquery-confirm';
+import "jquery-confirm/dist/jquery-confirm.min.css";
 
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
@@ -58,10 +59,11 @@ function App() {
       // alert("You are Subject "+data.count);
       $.alert({
         title: 'Alert!',
-        content: 'Simple alert!',
-        // offsetTop: '0px',
-        // position: { my: "left top", at: "left bottom", of: alert }
-      });
+        content: "You are Subject "+data.count,
+        width: 'auto',
+        // boxWidth: '30%',
+        useBootstrap: false // Need this line to set width
+    });
       setSubject(data.count + 1);
       setRoom(data.room);
       // setExperimentDateTime(data.expDT);
