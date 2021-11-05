@@ -37,6 +37,7 @@ function App() {
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
   const [room, setRoom] = useState();
+  console.log()
   const [message, setMessage] = useState("");
   const [prompt, setPrompt] = useState(0);
   const [experiment, setExperiment] = useState(null);
@@ -52,7 +53,7 @@ function App() {
         readyForTimer = true;
       } 
     })
-  },[])
+  },[room])
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -86,6 +87,7 @@ function App() {
     });
       setSubject(data.count + 1);
       setRoom(data.room);
+      console.log('checking room', room)
       // setExperimentDateTime(data.expDT);
     });
   },[])

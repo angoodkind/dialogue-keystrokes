@@ -6,8 +6,8 @@ import AppPromptTime from './AppPromptTime';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <AppPromptTime />
+    <App />
+    {/* <AppPromptTime /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
