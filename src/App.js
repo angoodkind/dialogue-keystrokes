@@ -4,6 +4,8 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import * as constants from './constants';
+import $ from "jquery";
+import 'jquery-confirm';
 
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
@@ -53,7 +55,13 @@ function App() {
       console.log("My ID:", socket.id);
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
-      alert("You are Subject "+data.count);
+      // alert("You are Subject "+data.count);
+      $.alert({
+        title: 'Alert!',
+        content: 'Simple alert!',
+        // offsetTop: '0px',
+        // position: { my: "left top", at: "left bottom", of: alert }
+      });
       setSubject(data.count + 1);
       setRoom(data.room);
       // setExperimentDateTime(data.expDT);

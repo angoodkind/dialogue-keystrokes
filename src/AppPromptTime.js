@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import openSocket from 'socket.io-client';
+import $ from "jquery";
+import 'jquery-confirm';
 
 // Open a connection to the socket.io server 
 // const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
@@ -32,7 +34,12 @@ function AppPromptTime() {
       console.log("My ID:", socket.id);
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
-      alert("You are Subject "+data.count);
+    //   alert("You are Subject "+data.count);
+    $.alert({
+        title: 'Alert!',
+        content: 'Simple alert!',
+    });
+    
       setSubject(data.count + 1);
       setRoom(data.room);
       // setExperimentDateTime(data.expDT);
