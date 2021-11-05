@@ -38,7 +38,7 @@ function AppPromptTime() {
     //   alert("You are Subject "+data.count);
         $.alert({
             title: 'Alert!',
-            content: `You are subject ${data.count}`,
+            content: `You're subject ${data.count} <br> You're in room ${data.room}`,
             width: 'auto',
             // boxWidth: '30%',
             useBootstrap: false // Need this line to set width

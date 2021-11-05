@@ -8,6 +8,17 @@ import $ from "jquery";
 import 'jquery-confirm';
 import "jquery-confirm/dist/jquery-confirm.min.css";
 
+var readyForTimer = false;
+var dateInterval = setInterval(function(){
+  if (readyForTimer){
+    clearInterval(dateInterval);
+    const d = new Date();  
+    const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+    const expNode = expDate+`_`+expTime;
+  }
+}, 10);
+
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
 
@@ -33,6 +44,15 @@ function App() {
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
   // const [experimentDateTime, setExperimentDateTime] = useState("");
+
+  useEffect(()=> {
+    socket.on('readyForTimer', (data) => {
+      console.log("readyForTimer", room, data);
+      if (room == data.room) {
+        readyForTimer = true;
+      } 
+    })
+  },[])
 
   // Get all jatos related variables here
   if (window.addEventListener) {
