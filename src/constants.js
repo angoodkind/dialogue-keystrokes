@@ -14,7 +14,7 @@ export const ec2Base = 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com
 // The 'Finished...' prompts are so that the 2nd half of the 2nd prompt will show for the
 // alotted period of time
 export const prompts = [
-    {promptNum:1, promptText:`Prompt 1`, promptTime:10000},
+    {promptNum:1, promptText:`Prompt 1`, promptTime:120000},
     {promptNum:1, promptText:`warning1`, promptTime:3000},
     {promptNum:1, promptText:`Prompt 1`, promptTime:10000},
     {promptNum:2, promptText:`Prompt 2`, promptTime:10000},

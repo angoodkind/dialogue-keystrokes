@@ -80,7 +80,7 @@ function App() {
       // alert("You are Subject "+data.count);
       $.alert({
         title: 'Alert!',
-        content: "You are Subject "+data.count,
+        content: `You're subject ${data.count} <br> You're in room ${data.room}`,
         width: 'auto',
         // boxWidth: '30%',
         useBootstrap: false // Need this line to set width
@@ -267,20 +267,13 @@ function App() {
     }
   }
 
-  // end study and redrect
-  useEffect(()=> {
-    if (prompt >= constants.prompts.length-1) {
-      console.log('Done with prompts');
-      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
-      // After the last prompt, signal the parent frame to run jatos.endStudyAndRedirect,
-      // Which will redirect the user to Prolific's page and end the study.
-      // The code logic for the redirect can be found in ./redirect.html. 
-      // window.parent.postMessage({
-      //   'func': 'parentFunc',
-      //   'message': 'Redirecting...'
-      // }, "http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com:9000");
-    }
-  },[prompt])
+  // // end study and redrect
+  // useEffect(()=> {
+  //   if (prompt >= constants.prompts.length-1) {
+  //     console.log('Done with prompts');
+  //     window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
+  //   }
+  // },[prompt])
 
   
   // This is the JSX (React's version of HTML) structure of the chat interface
