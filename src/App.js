@@ -7,17 +7,10 @@ import * as constants from './constants';
 import $ from "jquery";
 import 'jquery-confirm';
 import "jquery-confirm/dist/jquery-confirm.min.css";
+import { escapeRegExp } from 'lodash';
 
 var readyForTimer = false;
-var dateInterval = setInterval(function(){
-  if (readyForTimer){
-    clearInterval(dateInterval);
-    const d = new Date();  
-    const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-    const expNode = expDate+`_`+expTime;
-  }
-}, 10);
+
 
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
@@ -49,11 +42,28 @@ function App() {
   useEffect(()=> {
     socket.on('readyForTimer', (data) => {
       console.log("readyForTimer", room, data);
-      if (room == data.room) {
-        readyForTimer = true;
-      } 
+      
+      readyForTimer = true;
+       
     })
   },[room])
+
+  useEffect(() => {
+    // setPrompt(0);
+    if (prompt == 0 ) {
+    var dateInterval = setInterval(function(){
+      if (readyForTimer){
+        clearInterval(dateInterval);
+        const d = new Date();  
+        const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+        const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+        const expNode = expDate+`_`+expTime;
+        console.log(expNode);
+        setPrompt(prompt+1);
+      }
+    }, 1);
+  }
+  },[prompt])
 
   // Get all jatos related variables here
   if (window.addEventListener) {
@@ -113,6 +123,7 @@ function App() {
 
 
   useEffect(()=> {
+    if (prompt > 0) {
     const timer = setTimeout(() => {
       if (prompt < constants.prompts.length-1) {
         // When the time is up, increment the prompt state variable.
@@ -123,6 +134,7 @@ function App() {
     return () => {
       clearTimeout(timer);
     };
+  }
     // The warning and timer Timeout(s) will run once every time the prompt changes.
   },[prompt])
 
