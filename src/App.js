@@ -7,7 +7,6 @@ import * as constants from './constants';
 import $ from "jquery";
 import 'jquery-confirm';
 import "jquery-confirm/dist/jquery-confirm.min.css";
-import { escapeRegExp } from 'lodash';
 
 var readyForTimer = false;
 
@@ -17,12 +16,6 @@ firebase.initializeApp(constants.firebaseConfig);
 
 // Open a connection to the socket.io server 
 const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
-
-// time-stamp at beginning of experiment
-const d = new Date();  
-const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-const expNode = expDate+`_`+expTime;
 
 // This is the App that will be rendered by React in index.js.
 function App() {
@@ -37,19 +30,16 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  // const [experimentDateTime, setExperimentDateTime] = useState("");
+  const [experimentNodeName, setExperimentNodeName] = useState();
 
   useEffect(()=> {
     socket.on('readyForTimer', (data) => {
-      console.log("readyForTimer", room, data);
-      
+      // console.log("readyForTimer", room, data);
       readyForTimer = true;
-       
     })
   },[room])
 
   useEffect(() => {
-    // setPrompt(0);
     if (prompt == 0 ) {
     var dateInterval = setInterval(function(){
       if (readyForTimer){
@@ -59,6 +49,7 @@ function App() {
         const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
         const expNode = expDate+`_`+expTime;
         console.log(expNode);
+        setExperimentNodeName(expNode);
         setPrompt(prompt+1);
       }
     }, 1);
@@ -98,7 +89,6 @@ function App() {
       setSubject(data.count + 1);
       setRoom(data.room);
       console.log('checking room', room)
-      // setExperimentDateTime(data.expDT);
     });
   },[])
 
@@ -107,8 +97,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      // console.log("expDate",experimentDateTime)
-      setExperiment(expDate+`-`+JSON.stringify(data));
+      setExperiment(experimentNodeName+`-`+JSON.stringify(data.room));
     })
   },[])
 
@@ -116,8 +105,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      // console.log("expDate",experimentDateTime)
-      setExperiment(expDate+`-`+JSON.stringify(data));
+      setExperiment(experimentNodeName+`-`+JSON.stringify(data.room));
     })
   },[])
 
@@ -139,8 +127,6 @@ function App() {
   },[prompt])
 
 
- 
-  
   // The keystrokes variable is how we will store the write location on keydowns
   // and write to the same location on key ups.
   const [keystrokes, setKeystrokes] = useState({});
@@ -156,11 +142,11 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": null
       }
-      if (experiment != null) {
+      if (experimentNodeName != null) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -178,7 +164,7 @@ function App() {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
 
-        firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -193,7 +179,7 @@ function App() {
   useEffect(()=> {
     if (sends != null && sends.from === subject) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + experiment + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
+      firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
     }
   },[sends])
 
