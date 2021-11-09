@@ -48,24 +48,24 @@ function App() {
       var dateInterval = setInterval(function(){
         if (readyForTimer){
           clearInterval(dateInterval);
-          // const d = new Date();  
-          // const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-          // const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-          // const expNode = expDate+`_`+expTime;
-          // setExperimentNodeName(expNode);
-          // console.log('Setting Node',expNode);
+          const d = new Date();  
+          const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+          const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+          const expNode = expDate+`_`+expTime;
+          setExperimentNodeName(expNode);
+          console.log('Setting Node Name',expNode);
           setPrompt(prompt+1);
         }
       }, 1);
     }
-    if (prompt == 1) {
-      const d = new Date();  
-      const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-      const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-      const expNode = expDate+`_`+expTime;
-      setExperimentNodeName(expNode);
-      console.log('Setting Node Name',expNode);
-    }
+    // if (prompt == 1) {
+    //   const d = new Date();  
+    //   const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+    //   const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+    //   const expNode = expDate+`_`+expTime;
+    //   setExperimentNodeName(expNode);
+    //   console.log('Setting Node Name',expNode);
+    // }
   },[prompt])
 
   // Get all jatos related variables here
