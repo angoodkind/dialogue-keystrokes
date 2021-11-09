@@ -11,6 +11,8 @@ import "jquery-confirm/dist/jquery-confirm.min.css";
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
 
+var nodeName = "";
+
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
 
@@ -29,7 +31,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
-  const [experimentNodeName, setExperimentNodeName] = useState();
+  // const [experimentNodeName, setExperimentNodeName] = useState();
 
   // Received from backend only when 2nd person joins
   // `readyForTimer` is the name of the socket and the var (change later)
@@ -52,7 +54,8 @@ function App() {
           const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
           const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
           const expNode = expDate+`_`+expTime;
-          setExperimentNodeName(expNode);
+          // setExperimentNodeName(expNode);
+          nodeName = expNode
           console.log('Setting Node Name',expNode);
           setPrompt(prompt+1);
         }
@@ -112,7 +115,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('setNode', (data) => {
       console.log("setNode", data);
-      setExperiment(experimentNodeName);
+      setExperiment(nodeName);
     })
   },[])
 
@@ -120,7 +123,7 @@ function App() {
     // If the client is the second member in their room, get the firebase Node that was already initialized.
     socket.on('getNode', (data) => {
       console.log("getNode", data);
-      setExperiment(experimentNodeName);
+      setExperiment(nodeName);
     })
   },[])
 
@@ -156,11 +159,11 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": null
       }
-      if (experimentNodeName != null) {
+      if (nodeName != null) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -178,7 +181,7 @@ function App() {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
 
-        firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -193,7 +196,7 @@ function App() {
   useEffect(()=> {
     if (sends != null && sends.from === subject) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + experimentNodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
+      firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
     }
   },[sends])
 
