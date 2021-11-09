@@ -35,6 +35,7 @@ function App() {
   // `readyForTimer` is the name of the socket and the var (change later)
   useEffect(()=> {
     socket.on('readyForTimer', (data) => {
+      // console.log("readyForTimer", room, data);
       readyForTimer = true;
     })
   },[room])
