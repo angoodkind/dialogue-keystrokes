@@ -58,6 +58,14 @@ function App() {
         }
       }, 1);
     }
+    if (prompt == 1) {
+      const d = new Date();  
+      const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+      const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+      const expNode = expDate+`_`+expTime;
+      setExperimentNodeName(expNode);
+      console.log('Setting Node Name',expNode);
+    }
   },[prompt])
 
   // Get all jatos related variables here
@@ -271,13 +279,13 @@ function App() {
     }
   }
 
-  // end study and redrect
-  useEffect(()=> {
-    if (prompt >= constants.prompts.length-1) {
-      console.log('Done with prompts');
-      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
-    }
-  },[prompt])
+  // // end study and redrect
+  // useEffect(()=> {
+  //   if (prompt >= constants.prompts.length-1) {
+  //     console.log('Done with prompts');
+  //     window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
+  //   }
+  // },[prompt])
 
   
   // This is the JSX structure of the chat interface
