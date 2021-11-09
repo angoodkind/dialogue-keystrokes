@@ -52,7 +52,7 @@ function App() {
           clearInterval(dateInterval);
           const d = new Date();  
           const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-          const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+          const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
           const expNode = expDate+`_`+expTime;
           // setExperimentNodeName(expNode);
           nodeName = expNode
