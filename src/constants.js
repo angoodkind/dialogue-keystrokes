@@ -10,6 +10,14 @@ export const firebaseConfig = {
 
 export const ec2Base = 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com'
 
+const prompt1Text = "Alex has had a long week at work, and would like to relax and watch a movie to unwind. Pat, what movie or movies would you recommend and why? \n \n Feel free to get to know each other, your tastes in movies, and discuss why you’ve recommended these movies. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person. \n \n You will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.";
+const prompt2Test = "Pat is bored, and would like to watch a really thought-provoking or stimulating movie. Alex, what movie or movies would you recommend and why? \n \n Again, feel free to get to learn more about each other, your tastes in movies, and discuss why you’ve recommended these movies. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person. \n \n You will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.";
+const warningText = "You have 1 minute left..."
+
+function minsToMS(mins) {
+  return mins * 60000;
+}
+
 // This is the array of prompts that will be displayed to the experiment subjects.
 // The 'Finished...' prompts are so that the 2nd half of the 2nd prompt will show for the
 // alotted period of time
@@ -24,32 +32,3 @@ export const prompts = [
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:3000},
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:3000}
   ]
-
-const prompt1Text = "Alex has had a long week at work, \
- and would like to relax and watch a movie to unwind. \
- Pat, what movie or movies would you recommend and why? \
-\n \n Feel free to get to know each other, your tastes in movies, \
-and discuss why you’ve recommended these movies. \
-Do not hesitate to express opinions, for example \
-about what you like or don’t like about certain movies or movie genres, \
-or certain actors and actresses. Try your best to not provide any “spoilers”\
- about a movie, and ruin it for the other person. \
-\n \n You will have 7 minutes to discuss this, \
-and a warning will appear when there is only 1 minute left.";
-
-const prompt2Test = "Pat is bored, and would like to watch \
-a really thought-provoking or stimulating movie. Alex, \
-what movie or movies would you recommend and why? \
-\n \n Again, feel free to get to learn more about each other, \
-your tastes in movies, and discuss why you’ve recommended these movies. \
-Do not hesitate to express opinions, for example about what you like or \
-don’t like about certain movies or movie genres, or certain actors and actresses. \
-Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.\
-\n \n You will have 7 minutes to discuss this, \
-and a warning will appear when there is only 1 minute left.";
-
-const warningText = "You have 1 minute left..."
-
-function minsToMS(mins) {
-  return mins * 60000;
-}
