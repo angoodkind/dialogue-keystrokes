@@ -45,18 +45,19 @@ function App() {
   // prompt to the first real prompt that both subjects see
   useEffect(() => {
     if (prompt == 0 ) {
-    var dateInterval = setInterval(function(){
-      if (readyForTimer){
-        clearInterval(dateInterval);
-        const d = new Date();  
-        const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-        const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-        const expNode = expDate+`_`+expTime;
-        setExperimentNodeName(expNode);
-        setPrompt(prompt+1);
-      }
-    }, 1);
-  }
+      var dateInterval = setInterval(function(){
+        if (readyForTimer){
+          clearInterval(dateInterval);
+          // const d = new Date();  
+          // const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+          // const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+          // const expNode = expDate+`_`+expTime;
+          // setExperimentNodeName(expNode);
+          // console.log('Setting Node',expNode);
+          setPrompt(prompt+1);
+        }
+      }, 1);
+    }
   },[prompt])
 
   // Get all jatos related variables here
