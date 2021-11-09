@@ -8,8 +8,8 @@ import $ from "jquery";
 import 'jquery-confirm';
 import "jquery-confirm/dist/jquery-confirm.min.css";
 
+// Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
-
 
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
@@ -23,21 +23,25 @@ function App() {
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
   const [room, setRoom] = useState();
-  console.log()
   const [message, setMessage] = useState("");
-  const [prompt, setPrompt] = useState(0);
+  const [prompt, setPrompt] = useState(0); // start with 'waiting...' prompt
   const [experiment, setExperiment] = useState(null);
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
   const [experimentNodeName, setExperimentNodeName] = useState();
 
+  // Received from backend only when 2nd person joins
+  // `readyForTimer` is the name of the socket and the var (change later)
   useEffect(()=> {
     socket.on('readyForTimer', (data) => {
       readyForTimer = true;
     })
   },[room])
 
+  // check is readyForTimer every 1 ms
+  // one 2nd person joins, clear the interval, set the date/time stamp, and advance the
+  // prompt to the first real prompt that both subjects see
   useEffect(() => {
     if (prompt == 0 ) {
     var dateInterval = setInterval(function(){
@@ -47,7 +51,6 @@ function App() {
         const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
         const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
         const expNode = expDate+`_`+expTime;
-        console.log(expNode);
         setExperimentNodeName(expNode);
         setPrompt(prompt+1);
       }
@@ -78,9 +81,12 @@ function App() {
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
       // alert("You are Subject "+data.count);
+      const subjName = data.count == 0 ? `Alex` : `Pat`;
+      const otherName = data.count == 0 ? `Pat` : `Alex`;
       $.alert({
-        title: 'Alert!',
-        content: `You're subject ${data.count} <br> You're in room ${data.room}`,
+        title: 'Welcome!',
+        content: `For this conversation, your name will be ${subjName}. <br> \
+        Your partner's name will be ${otherName}.`,
         width: 'auto',
         // boxWidth: '30%',
         useBootstrap: false // Need this line to set width
@@ -108,21 +114,20 @@ function App() {
     })
   },[])
 
-
+  // only starts when prompt > 0, which only occurs when both subjects have joined
   useEffect(()=> {
     if (prompt > 0) {
-    const timer = setTimeout(() => {
-      if (prompt < constants.prompts.length-1) {
-        // When the time is up, increment the prompt state variable.
-        setPrompt(prompt + 1);
-      }
-      // Time length of prompt 
-    }, constants.prompts[prompt].promptTime);
-    return () => {
-      clearTimeout(timer);
-    };
-  }
-    // The warning and timer Timeout(s) will run once every time the prompt changes.
+      const timer = setTimeout(() => {
+        if (prompt < constants.prompts.length-1) {
+          // When the time is up, increment the prompt state variable.
+          setPrompt(prompt + 1);
+        }
+        // Time length of prompt 
+      }, constants.prompts[prompt].promptTime);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   },[prompt])
 
 
