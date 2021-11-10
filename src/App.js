@@ -13,6 +13,8 @@ var readyForTimer = false;
 
 var nodeName = "";
 
+var roomName = "";
+
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
 
@@ -55,20 +57,12 @@ function App() {
           const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
           const expNode = expDate+`_`+expTime;
           // setExperimentNodeName(expNode);
-          nodeName = expNode+`-`+room
+          nodeName = expNode+`-`+roomName;
           console.log('Setting Node Name',expNode,nodeName);
           setPrompt(prompt+1);
         }
       }, 1);
     }
-    // if (prompt == 1) {
-    //   const d = new Date();  
-    //   const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-    //   const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-    //   const expNode = expDate+`_`+expTime;
-    //   setExperimentNodeName(expNode);
-    //   console.log('Setting Node Name',expNode);
-    // }
   },[prompt])
 
   // Get all jatos related variables here
@@ -106,7 +100,8 @@ function App() {
     });
       setSubject(data.count + 1);
       setRoom(data.room);
-      console.log('checking room', room)
+      console.log('checking room', data.room)
+      roomName = data.room;
     });
   },[])
 
