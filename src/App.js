@@ -55,8 +55,8 @@ function App() {
           const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
           const expNode = expDate+`_`+expTime;
           // setExperimentNodeName(expNode);
-          nodeName = expNode
-          console.log('Setting Node Name',expNode);
+          nodeName = expNode+`-`+room
+          console.log('Setting Node Name',expNode,nodeName);
           setPrompt(prompt+1);
         }
       }, 1);
