@@ -277,13 +277,13 @@ function App() {
     }
   }
 
-  // // end study and redrect
-  // useEffect(()=> {
-  //   if (prompt >= constants.prompts.length-1) {
-  //     console.log('Done with prompts');
-  //     window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
-  //   }
-  // },[prompt])
+  // end study and redrect
+  useEffect(()=> {
+    if (prompt >= constants.prompts.length-1) {
+      console.log('Done with prompts');
+      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
+    }
+  },[prompt])
 
   
   // This is the JSX structure of the chat interface
