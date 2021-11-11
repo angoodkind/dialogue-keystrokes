@@ -35,6 +35,7 @@ export const prompts = [
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(1)},
     {promptNum:1, promptText: prompt1Text, promptTime:30000},
     // {promptNum:2, promptText: prompt2Test, promptTime:minsToMS(1)},
+    {promptNum:1, promptText: `CHANGING PROMPTS`, promptTime:3000},
     {promptNum:2, promptText: prompt2Test, promptTime:30000},
     {promptNum:2, promptText: warningText, promptTime:10000},
     // {promptNum:2, promptText: prompt2Test, promptTime:minsToMS(1)},
