@@ -10,6 +10,7 @@
     "jquery-confirm": "^3.3.4",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
+    "react-countdown": "^2.3.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "socket.io-client": "^4.1.3",

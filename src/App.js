@@ -7,6 +7,7 @@ import * as constants from './constants';
 import $ from "jquery";
 import 'jquery-confirm';
 import "jquery-confirm/dist/jquery-confirm.min.css";
+import Countdown from 'react-countdown';
 
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
@@ -23,6 +24,36 @@ const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: fals
 
 // This is the App that will be rendered by React in index.js.
 function App() {
+
+  //render countdown timer for each prompt
+  let times = [50000, 50000];
+  function PromptCountdownTimer({times}) {
+    // a hook for the current time index
+    const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
+    // a hook for the curremt time
+    const [currentTime, setCurrentTime] = useState(null);
+    // what we'll actually render
+    return (
+      <Countdown
+        date={currentTime}
+        key={currentTimeIndex}
+        onComplete={() => {
+          // don't move to the 'next' time if this is the last index
+          if (times.length-1 <= times.indexOf(currentTime)) return;
+          // move to next index
+          setCurrentTimeIndex(currentTimeIndex + 1);
+          // reset current time
+          setCurrentTime(new Date(times[currentTimeIndex+1]));
+        }}
+        renderer={({ hours, minutes, seconds, completed }) => {
+          // render completed
+          if (completed) return <span>Done with prompt</span>;
+          //render current countdown time
+          return <span>{hours}:{minutes}:{seconds}</span>;
+        }}
+      />
+    );
+  }
   
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
@@ -308,7 +339,13 @@ function App() {
       </div>
       <div className="prompt">
         {/* Display the prompt based on which prompt you're on: */}
-        <div style={{margin: "50px"}}>{constants.prompts[prompt].promptText}</div>
+        <div style={{margin: "50px"}}>
+          <div>
+            {/* <Countdown date={Date.now() + 10000} /> */}
+            {/* <PromptCountdownTimer times={times} /> */}
+          </div>
+          {constants.prompts[prompt].promptText}
+        </div>
       </div>
     </div>
   );
