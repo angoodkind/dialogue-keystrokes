@@ -53,7 +53,7 @@ function App() {
         if (readyForTimer){
           clearInterval(dateInterval);
           const d = new Date();  
-          const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+          const expDate = d.toLocaleDateString('en-US').replace(/\//g,'-'); // replace all /'s with -'s
           const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
           const expNode = expDate+`_`+expTime;
           // setExperimentNodeName(expNode);
