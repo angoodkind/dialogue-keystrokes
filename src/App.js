@@ -297,7 +297,7 @@ function App() {
         </div>
         <div className="bar">
           <div className="type">
-            <input type="text" id="text-input" className="text-input" onChange={(e) => {
+            <input type="text" id="text-input" className="text-input" placeholder="Write here. Press 'Enter' key to send." onChange={(e) => {
               setMessage(e.target.value)            
             }}>
             </input>
