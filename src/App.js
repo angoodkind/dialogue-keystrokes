@@ -26,6 +26,7 @@ const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: fals
 function App() {
 
   //render countdown timer for each prompt
+  // ** currently not rendered **
   let times = [50000, 50000];
   function PromptCountdownTimer({times}) {
     // a hook for the current time index
