@@ -4,8 +4,8 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import * as constants from './constants';
-import $ from "jquery";
-import 'jquery-confirm';
+import $ from "jquery"; // For using jquery-confirm
+import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
 import Countdown from 'react-countdown';
 
@@ -329,7 +329,10 @@ function App() {
         </div>
         <div className="bar">
           <div className="type">
-            <input type="text" id="text-input" className="text-input" placeholder="Write here. Press 'Enter' key to send." onChange={(e) => {
+            <input type="text" id="text-input" className="text-input" 
+            placeholder="Write here. Press 'Enter' key to send." 
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            onChange={(e) => {
               setMessage(e.target.value)            
             }}>
             </input>
