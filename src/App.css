@@ -1,8 +1,6 @@
-/* Basic styling, check class names to see what rules control which elements. */
-
 * {
-  font-size: 20px;
-  font-family: 'Montserrat';
+  font-size: 18px;
+  font-family: 'Trebuchet MS';
 }
 
 .band {
@@ -83,7 +81,7 @@
   display: flex;
   flex: 1; /* occupy remaining space after timer */
   align-items: center;
-  margin: 1%;
+  margin: 5%;
   white-space: pre-wrap; /* Makes '\n' work in prompts */
 }
 
