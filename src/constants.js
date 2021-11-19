@@ -30,7 +30,7 @@ function minsToMS(mins) {
 export const prompts = [
     {promptNum:0, promptText: `Waiting for your partner, Pat, to join...\n*PLEASE DO NOT ENTER ANY TEXT*`, promptTime:5000},
     {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(6)},
-    // {promptNum:1, promptText: prompt1Text, promptTime:30000},
+    // {promptNum:1, promptText: prompt1Text, promptTime:20000},
     {promptNum:1, promptText: warningText, promptTime:10000},
     {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(1)},
     // {promptNum:1, promptText: prompt1Text, promptTime:30000},

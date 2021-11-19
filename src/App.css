@@ -10,7 +10,7 @@
   font-family: 'Georgia';
   margin: 5px;
 }
-
+/* One sender is 'm', the other is 'o' */
 .m-out {
   display: flex;
   align-items: flex-start;
@@ -49,13 +49,39 @@
   align-items: center;
 }
 
-.chatbox, .prompt {
+.chatbox {
   height: 90%;
   width: 45%;
   border: black 1px solid;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  align-items: center;
+  margin: 1%;
+  white-space: pre-wrap; /* Makes '\n' work in prompts */
+}
+
+.promptbox {
+  margin: 10px;
+  height: 90%;
+  width: 45%;
+  border: black 1px solid;
+  display: flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#timer {
+  margin: 10px;
+  display: flex;
+  margin-left: auto; /* right-aligned */
+}
+
+#prompttext {
+  display: flex;
+  flex: 1; /* occupy remaining space after timer */
   align-items: center;
   margin: 1%;
   white-space: pre-wrap; /* Makes '\n' work in prompts */

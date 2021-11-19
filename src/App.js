@@ -7,7 +7,7 @@ import * as constants from './constants';
 import $ from "jquery"; // For using jquery-confirm
 import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
-import Countdown from 'react-countdown';
+import Countdown, {zeroPad} from 'react-countdown';
 
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
@@ -16,46 +16,18 @@ var nodeName = "";
 
 var roomName = "";
 
+// set the experiment start time if readyForInterval = true, which means both subjects
+// have joined. Use this in the Countdown in JSX
+var experimentStartTime = "";
+
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
 
 // Open a connection to the socket.io server 
 const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
-// This is the App that will be rendered by React in index.js.
 function App() {
 
-  //render countdown timer for each prompt
-  // ** currently not rendered **
-  let times = [50000, 50000];
-  function PromptCountdownTimer({times}) {
-    // a hook for the current time index
-    const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
-    // a hook for the curremt time
-    const [currentTime, setCurrentTime] = useState(null);
-    // what we'll actually render
-    return (
-      <Countdown
-        date={currentTime}
-        key={currentTimeIndex}
-        onComplete={() => {
-          // don't move to the 'next' time if this is the last index
-          if (times.length-1 <= times.indexOf(currentTime)) return;
-          // move to next index
-          setCurrentTimeIndex(currentTimeIndex + 1);
-          // reset current time
-          setCurrentTime(new Date(times[currentTimeIndex+1]));
-        }}
-        renderer={({ hours, minutes, seconds, completed }) => {
-          // render completed
-          if (completed) return <span>Done with prompt</span>;
-          //render current countdown time
-          return <span>{hours}:{minutes}:{seconds}</span>;
-        }}
-      />
-    );
-  }
-  
   // These are React variables that control the state of the app. 
   const [subject, setSubject] = useState(null);
   const [room, setRoom] = useState();
@@ -92,6 +64,7 @@ function App() {
           nodeName = expDate+`-`+roomName;
           console.log('Setting Node Name',expNode,nodeName);
           setPrompt(prompt+1);
+          experimentStartTime = Date.now();
         }
       }, 1);
     }
@@ -120,6 +93,7 @@ function App() {
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
       // alert("You are Subject "+data.count);
+      // data.count is the equivalent of subject #, either 0 or 1
       const subjName = data.count == 0 ? `Alex` : `Pat`;
       const otherName = data.count == 0 ? `Pat` : `Alex`;
       $.alert({
@@ -169,6 +143,7 @@ function App() {
       };
     }
   },[prompt])
+
 
 
   // The keystrokes variable is how we will store the write location on keydowns
@@ -317,6 +292,16 @@ function App() {
     }
   },[prompt])
 
+
+  const renderer = ({ minutes, seconds }) => {
+    // no timer before both subjects start
+    if (constants.prompts[prompt].promptNum == 0) {
+      return <span></span>;
+    }
+    // start timer when both subjects join (prompt moves to 1)
+    return <span>Time left in experiment: {zeroPad(minutes)}:{zeroPad(seconds)}</span>;
+  };
+  
   
   // This is the JSX structure of the chat interface
   return (
@@ -341,15 +326,20 @@ function App() {
           {/* <div className="send-btn" onClick={() => sendMessage(message)}></div> */}
         </div>
       </div>
-      <div className="prompt">
-        {/* Display the prompt based on which prompt you're on: */}
-        <div style={{margin: "50px"}}>
-          <div>
-            {/* <Countdown date={Date.now() + 10000} /> */}
-            {/* <PromptCountdownTimer times={times} /> */}
+      <div className="promptbox">
+          {/* a countdown timer that runs throughout the experiment*/}
+          <div id="timer">
+            {constants.prompts[prompt].promptNum == 0 ?
+              <span></span> :
+              <Countdown date={experimentStartTime + 15*60000}
+              renderer={renderer}
+            />
+            }
           </div>
-          {constants.prompts[prompt].promptText}
-        </div>
+          {/* Display the prompt based on which prompt you're on: */}
+          <div id="prompttext">
+            {constants.prompts[prompt].promptText}
+          </div>
       </div>
     </div>
   );
