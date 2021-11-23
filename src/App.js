@@ -37,6 +37,7 @@ function App() {
   const [sentTime, setSentTime] = useState(Date.now());
   const [sends, setSends] = useState(null);
   const [prolific, setProlific] = useState(null);
+  const [prolificID, setProlificID] = useState(null);
   // const [experimentNodeName, setExperimentNodeName] = useState();
 
   // Received from backend only when 2nd person joins
@@ -92,18 +93,71 @@ function App() {
       console.log("My ID:", socket.id);
       console.log("my index:", data.count);
       console.log(`I'm connected with the back-end in room ${data.room}`);
-      // alert("You are Subject "+data.count);
       // data.count is the equivalent of subject #, either 0 or 1
       const subjName = data.count == 0 ? `Alex` : `Pat`;
       const otherName = data.count == 0 ? `Pat` : `Alex`;
-      $.alert({
-        title: 'Welcome!',
-        content: `For this conversation, your name will be ${subjName}. <br> \
-        Your partner's name will be ${otherName}.`,
+      $.confirm({
+        title: 'Prolific ID',
         width: 'auto',
-        // boxWidth: '30%',
-        useBootstrap: false // Need this line to set width
-    });
+        boxWidth: '30%',
+        useBootstrap: false, // Need this line to set width
+        content: '' +
+        '<form action="" class="formName">' +
+          '<div class="form-group">' +
+            '<label>(For Internal Use Only)</label>' +
+            '</br></br>' +
+            '<input type="text" placeholder="Prolific ID" class="name form-control" required />' +
+          '</div>' +
+        '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-blue',
+                action: function () {
+                    var name = this.$content.find('.name').val();
+                    if(!name){
+                        $.alert({
+                          content: 'Please provide a valid Prolific ID',
+                          width: 'auto',
+                          // boxWidth: '30%',
+                          useBootstrap: false // Need this line to set width
+                        });
+                        return false;
+                    }
+                    setProlificID(name);
+                    // $.alert('Your SubjID is ' + subject + '_' + name);
+                    $.alert({
+                      title: 'Welcome!',
+                      content: `For this conversation, your name will be ${subjName}. <br> \
+                      Your partner's name will be ${otherName}.`,
+                      width: 'auto',
+                      // boxWidth: '30%',
+                      useBootstrap: false // Need this line to set width
+                  });
+                }
+            },
+            // cancel: function () {
+            //     return false;
+            // },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+      });
+    //   $.alert({
+    //     title: 'Welcome!',
+    //     content: `For this conversation, your name will be ${subjName}. <br> \
+    //     Your partner's name will be ${otherName}.`,
+    //     width: 'auto',
+    //     // boxWidth: '30%',
+    //     useBootstrap: false // Need this line to set width
+    // });
       setSubject(data.count + 1);
       setRoom(data.room);
       console.log('checking room', data.room)
@@ -163,9 +217,9 @@ function App() {
       }
       if (nodeName != null) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject+'_'+prolificID + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject+'_'+prolificID + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -183,7 +237,7 @@ function App() {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
 
-        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject+'_'+prolificID + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -198,7 +252,7 @@ function App() {
   useEffect(()=> {
     if (sends != null && sends.from === subject) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject + '/sends').push(sends)
+      firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject+'_'+prolificID + '/sends').push(sends)
     }
   },[sends])
 
