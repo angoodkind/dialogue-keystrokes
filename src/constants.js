@@ -16,11 +16,11 @@ const prompt0Text = `Waiting for your partner, Pat, to join...
 
 const prompt1Text = `Alex has had a long week at work, and would like to relax and watch a movie to unwind. Pat, what movie or movies would you recommend and why?
 \nFeel free to get to know each other, your tastes in movies, and discuss why you’ve recommended these movies. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
-\nYou will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
+\nYou will have 5 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
 
 const prompt2Text = `Pat is bored, and would like to watch a really thought-provoking or stimulating movie. Alex, what movie or movies would you recommend and why?
 \nAgain, feel free to get to learn more about each other, your tastes in movies, and discuss why you’ve recommended these movies. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
-\nYou will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
+\nYou will have 5 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
 
 const warningText = `You have 1 minute left on this section...`
 
