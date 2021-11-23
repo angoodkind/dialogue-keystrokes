@@ -331,7 +331,7 @@ function App() {
           <div id="timer">
             {constants.prompts[prompt].promptNum == 0 ?
               <span></span> :
-              <Countdown date={experimentStartTime + 15*60000}
+              <Countdown date={experimentStartTime + 10*60000}
               renderer={renderer}
             />
             }
