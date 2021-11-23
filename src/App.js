@@ -316,7 +316,7 @@ function App() {
           <div className="type">
             <input type="text" id="text-input" className="text-input" 
             placeholder="Write here. Press 'Enter' key to send." 
-            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"
             onChange={(e) => {
               setMessage(e.target.value)            
             }}>
