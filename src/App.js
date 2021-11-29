@@ -149,15 +149,8 @@ function App() {
                 jc.$$formSubmit.trigger('click'); // reference the button and click it
             });
         }
-      });
-    //   $.alert({
-    //     title: 'Welcome!',
-    //     content: `For this conversation, your name will be ${subjName}. <br> \
-    //     Your partner's name will be ${otherName}.`,
-    //     width: 'auto',
-    //     // boxWidth: '30%',
-    //     useBootstrap: false // Need this line to set width
-    // });
+      }); // end confirm box
+
       setSubject(data.count + 1);
       setRoom(data.room);
       console.log('checking room', data.room)
@@ -236,7 +229,6 @@ function App() {
       if (experiment != null) {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
-
         firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject+'_'+prolificID + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node

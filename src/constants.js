@@ -34,16 +34,19 @@ function minsToMS(mins) {
 export const prompts = [
     {promptNum:0, promptText: prompt0Text, promptTime:5000},
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(6)}, // real exp - 15 mins
-    {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(4)}, // pilot - 10 mins
+    // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(4)}, // pilot - 10 mins
+    {promptNum:0, promptText:`Setting up experiment`, promptTime:5000}, // add this to avoid NaN in CountDown
+    {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:1, promptText: warningText, promptTime:10000},
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(1.2)}, // real exp
-    {promptNum:1, promptText: prompt1Text, promptTime:(50*1000)}, // pilot
+    // {promptNum:1, promptText: prompt1Text, promptTime:(50*1000)}, // pilot
     {promptNum:1, promptText: `CHANGING PROMPTS`, promptTime:3000},
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(6)}, // real exp
-    {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(4)}, // pilot
+    // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(4)}, // pilot
+    {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:2, promptText: warningText, promptTime:10000},
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(1.2)}, // real exp
-    {promptNum:2, promptText: prompt2Text, promptTime:(50*1000)}, // pilot
+    // {promptNum:2, promptText: prompt2Text, promptTime:(50*1000)}, // pilot
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000},
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000}
   ]
