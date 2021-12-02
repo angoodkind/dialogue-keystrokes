@@ -320,14 +320,14 @@ function App() {
   // Sends the message that is currently stored in the message state variable and
   // resets that variable.
   function sendMessage (message) {
-    document.getElementById("text-input").value = "";
-    setMessage("");
     if (message !== "") {
       setSentTime(Date.now());
       socket.emit("message", {signal: {user: subject, data: message}, room: room});
     } else {
       console.log("empty message:", Date.now())
     }
+    document.getElementById("text-input").value = "";
+    setMessage("");
   }
 
   // end study and redrect
