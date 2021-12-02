@@ -210,9 +210,9 @@ function App() {
       }
       if (nodeName != null) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' +  subject+'_'+prolificID + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/subject' +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  + subject+'_'+prolificID + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -229,7 +229,7 @@ function App() {
       if (experiment != null) {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
-        firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject'  +  subject+'_'+prolificID + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + nodeName + '/subject'  +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -244,7 +244,7 @@ function App() {
   useEffect(()=> {
     if (sends != null && sends.from === subject) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + nodeName + '/prompt' + constants.prompts[prompt].promptNum + '/subject' + subject+'_'+prolificID + '/sends').push(sends)
+      firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/sends').push(sends)
     }
   },[sends])
 
