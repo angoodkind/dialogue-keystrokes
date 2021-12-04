@@ -12,7 +12,7 @@ import Countdown, {zeroPad} from 'react-countdown';
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
 
-var nodeName = "";
+var nodeName = null;
 
 var roomName = "";
 
@@ -59,11 +59,11 @@ function App() {
           clearInterval(dateInterval);
           const d = new Date();  
           const expDate = d.toLocaleDateString('en-US').replace(/\//g,'-'); // replace all /'s with -'s
-          const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
-          const expNode = expDate+`_`+expTime;
+          // const expTime = d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); //24-hour time format
+          // const expNode = expDate+`_`+expTime;
           // setExperimentNodeName(expNode);
           nodeName = expDate+`-`+roomName;
-          console.log('Setting Node Name',expNode,nodeName);
+          console.log('Setting Node Name',nodeName);
           setPrompt(prompt+1);
           experimentStartTime = Date.now();
         }
@@ -208,7 +208,7 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": null
       }
-      if (nodeName != null) {
+      if (nodeName != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
         // Map the keystroke to its latest firebase node.
         setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/subject' +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys').push().key}));
         // Write the info object to that location.
@@ -226,7 +226,7 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": (e.key.length === 1 || e.code === "Backspace" ? e.key : null),
       }
-      if (experiment != null) {
+      if (experiment != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
         firebase.database().ref('prod/' + nodeName + '/subject'  +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
@@ -242,7 +242,7 @@ function App() {
 
 
   useEffect(()=> {
-    if (sends != null && sends.from === subject) {
+    if (sends != null && sends.from === subject && constants.prompts[prompt].promptNum > 0) {
       // "Sends" is an object storing the information for chats about to be sent. 
       firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/sends').push(sends)
     }
