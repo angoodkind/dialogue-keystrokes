@@ -10,23 +10,76 @@ export const firebaseConfig = {
 
 export const ec2Base = 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com'
 
-// const prompt0Text = (
-//   <> /* JSX strings need to be wrapped in parent tags */
-//    <h1>Hello</h1>
-//    <p>regular</p>
-//   </>
-// );
-const prompt0Text = `Waiting for your partner, Pat, to join...
-\n*PLEASE DO NOT ENTER ANY TEXT. IT WILL NOT BE SEEN.*
-\n\nIf your partner does not join after 5 minutes, please exit the study and email movie-study@u.northwestern.edu.`
+/* JSX strings need to be wrapped in parent (div?) tags */
+const prompt0Text = (
+  <div> 
+   <p style={{fontSize:'25px'}}>Waiting for your partner, Pat, to join...</p>
+   <p style={{color:'red',fontSize:'18px'}}><strong>*PLEASE DO NOT ENTER ANY TEXT. IT WILL NOT BE SEEN.*</strong></p>
+   <p>If your partner does not join after 5 minutes, please exit the study and email movie-study@u.northwestern.edu.</p>
+  </div>
+);
 
-const prompt1Text = `Alex has had a long week at work, and would like to relax and watch a movie or TV show to unwind. Pat, what movies or TV shows would you recommend and why?
-\nFeel free to get to know each other and your tastes in movies/TV. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
-\nYou will have 8 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
+const prompt1Text = (
+  <div>
+    <ul>
+      <li>
+        Pat, first get to know Alex's tastes. What kinds of movies or TV shows do they like and dislike?
+      </li>
+      <li>
+        Do not hesitate to express strong opinions, about genres or actresses you especially like or don’t like.
+        Try your best to not provide any “spoilers.”
+      </li>
+      <li>
+        You will have 8 minutes to discuss the prompt below, and a warning will appear when there is 1 minute left.
+      </li>
+    </ul>
+      <p style={{backgroundColor:'gainsboro',
+                fontWeight:'bold',
+                fontStyle:'italic',
+                textAlign:'center',
+                fontSize:'23px'}}>
+        Alex has had a long week at work, and would like to relax and watch a movie or TV show to unwind. 
+        Pat, what movies or TV shows would you recommend and why?
+      </p>
+  </div>
+);
 
-const prompt2Text = `Pat is bored, and would like to watch a really thought-provoking or stimulating movie or TV show. Alex, what movies or TV shows would you recommend and why?
-\nDo not hesitate to express opinions, for example about what you like or don’t like about certain movies or TV shows, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
-\nYou will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
+const prompt2Text = (
+  <div>
+    <ul>
+      <li>
+        Alex, now get to know Pat's tastes first. What kinds of movies or TV shows do they like and dislike?
+      </li>
+      <li>
+        Do not hesitate to express strong opinions, about genres or actresses you especially like or don’t like.
+        Try your best to not provide any “spoilers.”
+      </li>
+      <li>
+        You will have 8 minutes to discuss the prompt below, and a warning will appear when there is 1 minute left.
+      </li>
+    </ul>
+      <p style={{backgroundColor:'gainsboro',
+                fontWeight:'bold',
+                fontStyle:'italic',
+                textAlign:'center',
+                fontSize:'23px'}}>
+        Pat is bored, and would like to watch a really thought-provoking or stimulating movie or TV show. 
+        Alex, what movies or TV shows would you recommend and why?
+      </p>
+  </div>
+);
+
+// const prompt0Text = `Waiting for your partner, Pat, to join...
+// \n*PLEASE DO NOT ENTER ANY TEXT. IT WILL NOT BE SEEN.*
+// \n\nIf your partner does not join after 5 minutes, please exit the study and email movie-study@u.northwestern.edu.`
+
+// const prompt1Text = `Alex has had a long week at work, and would like to relax and watch a movie or TV show to unwind. Pat, what movies or TV shows would you recommend and why?
+// \nFeel free to get to know each other and your tastes in movies/TV. Do not hesitate to express opinions, for example about what you like or don’t like about certain movies or movie genres. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
+// \nYou will have 8 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
+
+// const prompt2Text = `Pat is bored, and would like to watch a really thought-provoking or stimulating movie or TV show. Alex, what movies or TV shows would you recommend and why?
+// \nDo not hesitate to express opinions, for example about what you like or don’t like about certain movies or TV shows, or certain actors and actresses. Try your best to not provide any “spoilers” about a movie, and ruin it for the other person.
+// \nYou will have 7 minutes to discuss this, and a warning will appear when there is only 1 minute left.`;
 
 const warningText = `You have 1 minute left on this section...`
 

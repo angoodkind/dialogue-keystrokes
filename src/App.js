@@ -226,7 +226,7 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": (e.key.length === 1 || e.code === "Backspace" ? e.key : null),
       }
-      if (experiment != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
+      if (nodeName != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
         firebase.database().ref('prod/' + nodeName + '/subject'  +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
@@ -375,7 +375,7 @@ function App() {
       <div className="promptbox">
           {/* a countdown timer that runs throughout the experiment*/}
           <div id="timer">
-            {constants.prompts[prompt].promptNum == 0 ?
+            {constants.prompts[prompt].promptNum == 0 ? 
               <span></span> : 
               <Countdown date={experimentStartTime + (15*60000)}
               renderer={renderer}
