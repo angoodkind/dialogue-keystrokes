@@ -26,7 +26,7 @@ const prompt1Text = (
         Pat, first get to know Alex's tastes. What kinds of movies or TV shows do they like and dislike?
       </li>
       <li>
-        Do not hesitate to express strong opinions, about genres or actresses you especially like or don’t like.
+        Do not hesitate to express strong opinions, about genres, actors, etc. you especially like or don’t like.
         Try your best to not provide any “spoilers.”
       </li>
       <li>
@@ -51,7 +51,7 @@ const prompt2Text = (
         Alex, now get to know Pat's tastes first. What kinds of movies or TV shows do they like and dislike?
       </li>
       <li>
-        Do not hesitate to express strong opinions, about genres or actresses you especially like or don’t like.
+        Do not hesitate to express strong opinions, about genres, actors, etc. you especially like or don’t like.
         Try your best to not provide any “spoilers.”
       </li>
       <li>
@@ -97,14 +97,14 @@ export const prompts = [
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(4)}, // pilot - 10 mins
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:1, promptText: warningText, promptTime:10000},
-    {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(1.2)}, // real exp
+    {promptNum:1, promptText: prompt1Text, promptTime:50000}, // real exp
     // {promptNum:1, promptText: prompt1Text, promptTime:(50*1000)}, // pilot
     {promptNum:1, promptText: `CHANGING PROMPTS`, promptTime:3000},
-    {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(6)}, // real exp
+    {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(7)}, // real exp
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(4)}, // pilot
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:2, promptText: warningText, promptTime:10000},
-    {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(1.2)}, // real exp
+    {promptNum:2, promptText: prompt2Text, promptTime:50000}, // real exp
     // {promptNum:2, promptText: prompt2Text, promptTime:(50*1000)}, // pilot
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000},
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000}
