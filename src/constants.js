@@ -97,14 +97,14 @@ export const prompts = [
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(4)}, // pilot - 10 mins
     // {promptNum:1, promptText: prompt1Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:1, promptText: warningText, promptTime:10000},
-    {promptNum:1, promptText: prompt1Text, promptTime:43000}, // real exp
+    {promptNum:1, promptText: prompt1Text, promptTime:45000}, // real exp
     // {promptNum:1, promptText: prompt1Text, promptTime:(50*1000)}, // pilot
     {promptNum:1, promptText: `CHANGING PROMPTS`, promptTime:3000},
     {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(7)}, // real exp
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(4)}, // pilot
     // {promptNum:2, promptText: prompt2Text, promptTime:minsToMS(0.5)}, // test - 30 secs
     {promptNum:2, promptText: warningText, promptTime:10000},
-    {promptNum:2, promptText: prompt2Text, promptTime:45000}, // real exp
+    {promptNum:2, promptText: prompt2Text, promptTime:48000}, // real exp
     // {promptNum:2, promptText: prompt2Text, promptTime:(50*1000)}, // pilot
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000},
     {promptNum:3, promptText:`Finished...redirecting`, promptTime:5000}
