@@ -89,9 +89,8 @@ function App() {
 
   // receives from back
   function onTypingTest(result) {
-    
     if (result.user != subject) {
-      console.log('partner is typing onTyping()')
+      console.log('partner is typing onTyping()','result',result,'subject',subject)
     }
   }
 
@@ -316,7 +315,7 @@ function App() {
         updateScroll();
       })
     }
-  },[subject])
+  },[])
 
   // ####################################### //
   // ####################################### //
@@ -338,7 +337,7 @@ function App() {
       console.log("onTypingTest front", data);
       onTypingTest(data);
     })
-  },[])
+  },[keystrokes])
   
   // Sends the message that is currently stored in the message state variable and
   // resets that variable.
