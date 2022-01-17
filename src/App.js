@@ -21,6 +21,8 @@ var roomName = "";
 // have joined. Use this in the Countdown in JSX
 var experimentStartTime = "";
 
+var typingTimeout = null;
+
 // Must configure firebase before using its services
 firebase.initializeApp(constants.firebaseConfig);
 
@@ -336,9 +338,8 @@ function App() {
           console.log('partner is typing typingInd','data',data,'subject',subject)
           document.getElementById("is-typing").classList.remove("hidden");
 
-          let myTimeout;
-          clearTimeout(myTimeout);
-          myTimeout = setTimeout(function(){
+          clearTimeout(typingTimeout);
+          typingTimeout = setTimeout(function(){
             document.getElementById("is-typing").classList.add("hidden");
           }, 2000)
         }
