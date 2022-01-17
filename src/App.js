@@ -334,7 +334,13 @@ function App() {
       
         if (data.user != subject && subject) {
           console.log('partner is typing typingInd','data',data,'subject',subject)
-          document.getElementById("is-typing").classList.toggle("hidden");
+          document.getElementById("is-typing").classList.remove("hidden");
+
+          let myTimeout;
+          clearTimeout(myTimeout);
+          myTimeout = setTimeout(function(){
+            document.getElementById("is-typing").classList.add("hidden");
+          }, 2000)
         }
 
     })
