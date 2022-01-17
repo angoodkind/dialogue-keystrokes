@@ -139,6 +139,10 @@ li:not(:last-child) {
   /* border: black 1px solid; */
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .send-btn:hover {
   cursor: pointer;
   opacity: 0.8;

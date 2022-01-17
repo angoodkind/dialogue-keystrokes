@@ -413,7 +413,7 @@ function App() {
           {/* Button code below. */}
           {/* <div className="send-btn" onClick={() => sendMessage(message)}></div> */}
         </div>
-        <div className='is-typing'>
+        <div className='is-typing hidden'>
           {'Partner is typing...'}
         </div>
       </div>
