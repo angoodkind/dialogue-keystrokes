@@ -75,7 +75,7 @@ function App() {
 
   if (window.addEventListener) {
     window.addEventListener("message", onMessage, false);   
-    window.addEventListener('typingInd', onTyping);     
+   
   } 
   else if (window.attachEvent) {
       window.attachEvent("onmessage", onMessage, false);
@@ -87,8 +87,8 @@ function App() {
     setProlific(event.data.message);
   }
 
-  function onTyping(event) {
-    console.log('partner is typing')
+  function onTypingTest(event) {
+    console.log('partner is typing onTyping()')
   }
 
    // Set up the socket in a useEffect with nothing in the dependency array,
@@ -327,6 +327,14 @@ function App() {
       isTypingTest();
     }
   },[message])
+
+  useEffect(()=> {
+    // If the client is the first member in their room, initialize a firebase Node for the room to write to.
+    socket.on('typingInd', (data) => {
+      console.log("onTypingTest front", data);
+      onTypingTest(nodeName);
+    })
+  },[])
   
   // Sends the message that is currently stored in the message state variable and
   // resets that variable.
