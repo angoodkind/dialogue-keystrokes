@@ -401,7 +401,10 @@ function App() {
           {/* <div className="send-btn" onClick={() => sendMessage(message)}></div> */}
         </div>
         <div className='hidden' id='is-typing'>
-          {'Partner is typing...'}
+          {subject == 1 ?
+            'Pat is typing' :
+            'Alex is typing'
+          }
         </div>
       </div>
       <div className="promptbox">
