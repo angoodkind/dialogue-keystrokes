@@ -334,6 +334,7 @@ function App() {
       
         if (data.user != subject && subject) {
           console.log('partner is typing typingInd','data',data,'subject',subject)
+          document.getElementById("is-typing").classList.toggle("hidden");
         }
 
     })
@@ -413,7 +414,7 @@ function App() {
           {/* Button code below. */}
           {/* <div className="send-btn" onClick={() => sendMessage(message)}></div> */}
         </div>
-        <div className='is-typing hidden'>
+        <div className='hidden' id='is-typing'>
           {'Partner is typing...'}
         </div>
       </div>

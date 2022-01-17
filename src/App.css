@@ -132,7 +132,7 @@ li:not(:last-child) {
   
 }
 
-.is-typing {
+#is-typing {
   display: flex;
   width: 90%;
   margin: 1%;
