@@ -332,7 +332,7 @@ function App() {
       console.log("onTypingTest front", data, subject);
       // receives from back
       
-        if (data.user != subject) {
+        if (data.user != subject && subject) {
           console.log('partner is typing typingInd','data',data,'subject',subject)
         }
 
