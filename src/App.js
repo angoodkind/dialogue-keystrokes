@@ -87,12 +87,7 @@ function App() {
     setProlific(event.data.message);
   }
 
-  // receives from back
-  function onTypingTest(result) {
-    if (result.user != subject) {
-      console.log('partner is typing onTyping()','result',result,'subject',subject)
-    }
-  }
+  
 
    // Set up the socket in a useEffect with nothing in the dependency array,
   // to avoid setting up multiple connections.
@@ -335,7 +330,12 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('typingInd', (data) => {
       console.log("onTypingTest front", data, subject);
-      onTypingTest(data);
+      // receives from back
+      
+        if (data.user != subject) {
+          console.log('partner is typing typingInd','data',data,'subject',subject)
+        }
+
     })
   },[subject])
   
