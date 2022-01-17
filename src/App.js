@@ -334,10 +334,10 @@ function App() {
   useEffect(()=> {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('typingInd', (data) => {
-      console.log("onTypingTest front", data);
+      console.log("onTypingTest front", data, subject);
       onTypingTest(data);
     })
-  },[keystrokes])
+  },[subject])
   
   // Sends the message that is currently stored in the message state variable and
   // resets that variable.
