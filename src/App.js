@@ -352,7 +352,6 @@ function App() {
     }
     document.getElementById("text-input").value = "";
     setMessage("");
-    cancelTyping(); //NEW
   }
 
   // sends to back
