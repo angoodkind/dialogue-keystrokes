@@ -87,7 +87,8 @@ function App() {
     setProlific(event.data.message);
   }
 
-  function onTypingTest(event) {
+  // receives from back
+  function onTypingTest(result) {
     
     if (result.user != subject) {
       console.log('partner is typing onTyping()')
@@ -335,7 +336,7 @@ function App() {
     // If the client is the first member in their room, initialize a firebase Node for the room to write to.
     socket.on('typingInd', (data) => {
       console.log("onTypingTest front", data);
-      onTypingTest(nodeName);
+      onTypingTest(data);
     })
   },[])
   
@@ -353,6 +354,7 @@ function App() {
     cancelTyping(); //NEW
   }
 
+  // sends to back
   function isTypingTest () {
     socket.emit("typingInd", {signal: {user: subject, data: message}, room: room});
   }
