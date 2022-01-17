@@ -8,7 +8,6 @@ import $ from "jquery"; // For using jquery-confirm
 import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
 import Countdown, {zeroPad} from 'react-countdown';
-import useTyping from './useTyping';
 
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
@@ -21,6 +20,7 @@ var roomName = "";
 // have joined. Use this in the Countdown in JSX
 var experimentStartTime = "";
 
+// for isTyping indicator
 var typingTimeout = null;
 
 // Must configure firebase before using its services
@@ -314,36 +314,30 @@ function App() {
     }
   },[])
 
-  // ####################################### //
-  // ####################################### //
-  // ####################################### //
-
+  // look for keypresses
+  // - any keypress = typing indicator
+  // - enter = send message
   useEffect(()=> {
-    // This is the enter button that sends a message.
     window.onkeypress = function (e) {
       if (e.code === "Enter") {
         sendMessage(message)
       }
-      isTypingTest();
+      isTyping();
     }
   },[message])
 
+  // isTyping indicator
+  // receives from backend
   useEffect(()=> {
-    // If the client is the first member in their room, initialize a firebase Node for the room to write to.
-    socket.on('typingInd', (data) => {
-      console.log("onTypingTest front", data, subject);
-      // receives from back
-      
+    socket.on('isTypingIndicator', (data) => {
         if (data.user != subject && subject) {
-          console.log('partner is typing typingInd','data',data,'subject',subject)
           document.getElementById("is-typing").classList.remove("hidden");
-
+          // add a 5000 ms delay so it doesn't go away the moment they stop typing
           clearTimeout(typingTimeout);
           typingTimeout = setTimeout(function(){
             document.getElementById("is-typing").classList.add("hidden");
-          }, 2000)
+          }, 5000)
         }
-
     })
   },[subject])
   
@@ -362,23 +356,9 @@ function App() {
   }
 
   // sends to back
-  function isTypingTest () {
-    socket.emit("typingInd", {signal: {user: subject, data: message}, room: room});
+  function isTyping () {
+    socket.emit("isTypingIndicator", {signal: {user: subject, data: message}, room: room});
   }
-
-  // ####################################### //
-  // ####################################### //
-  // ####################################### //
-
-  const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
-
-
-
-
-
-
-
-
 
   // end study and redrect
   useEffect(()=> {
