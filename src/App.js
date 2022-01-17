@@ -8,6 +8,7 @@ import $ from "jquery"; // For using jquery-confirm
 import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
 import Countdown, {zeroPad} from 'react-countdown';
+import useTyping from './useTyping';
 
 // Changes when 2nd subject joins, so that timers are in sync
 var readyForTimer = false;
@@ -71,9 +72,10 @@ function App() {
     }
   },[prompt])
 
-  // Get all jatos related variables here
+
   if (window.addEventListener) {
-    window.addEventListener("message", onMessage, false);        
+    window.addEventListener("message", onMessage, false);   
+    window.addEventListener('typingInd', onTyping);     
   } 
   else if (window.attachEvent) {
       window.attachEvent("onmessage", onMessage, false);
@@ -83,6 +85,10 @@ function App() {
     // Check sender origin to be trusted
     if (event.origin !== `${constants.ec2Base}:9000`) return;
     setProlific(event.data.message);
+  }
+
+  function onTyping(event) {
+    console.log('partner is typing')
   }
 
    // Set up the socket in a useEffect with nothing in the dependency array,
@@ -308,12 +314,17 @@ function App() {
     }
   },[subject])
 
+  // ####################################### //
+  // ####################################### //
+  // ####################################### //
+
   useEffect(()=> {
     // This is the enter button that sends a message.
     window.onkeypress = function (e) {
       if (e.code === "Enter") {
         sendMessage(message)
       }
+      isTypingTest();
     }
   },[message])
   
@@ -328,7 +339,26 @@ function App() {
     }
     document.getElementById("text-input").value = "";
     setMessage("");
+    cancelTyping(); //NEW
   }
+
+  function isTypingTest () {
+    socket.emit("typingInd", {signal: {user: subject, data: message}, room: room});
+  }
+
+  // ####################################### //
+  // ####################################### //
+  // ####################################### //
+
+  const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
+
+
+
+
+
+
+
+
 
   // end study and redrect
   useEffect(()=> {
@@ -370,6 +400,9 @@ function App() {
           </div>
           {/* Button code below. */}
           {/* <div className="send-btn" onClick={() => sendMessage(message)}></div> */}
+        </div>
+        <div className='is-typing'>
+          {'Partner is typing...'}
         </div>
       </div>
       <div className="promptbox">
