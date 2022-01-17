@@ -88,7 +88,10 @@ function App() {
   }
 
   function onTypingTest(event) {
-    console.log('partner is typing onTyping()')
+    
+    if (result.user != subject) {
+      console.log('partner is typing onTyping()')
+    }
   }
 
    // Set up the socket in a useEffect with nothing in the dependency array,
