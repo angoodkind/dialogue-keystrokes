@@ -333,14 +333,14 @@ function App() {
       console.log('ks',data.ks);
         if (data.user != subject && subject) {
           document.getElementById("is-typing").classList.remove("hidden");
-          // add a 5000 ms delay so it doesn't go away the moment they stop typing
+          // add a 2500 ms delay so it doesn't go away the moment they stop typing
           clearTimeout(typingTimeout);
           if (data.ks === "Enter") {
             document.getElementById("is-typing").classList.add("hidden");
           } else {
           typingTimeout = setTimeout(function(){
             document.getElementById("is-typing").classList.add("hidden");
-          }, 5000)
+          }, 2500)
         }}
         
     })
