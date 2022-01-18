@@ -320,9 +320,9 @@ function App() {
   useEffect(()=> {
     window.onkeypress = function (e) {
       if (e.code === "Enter") {
-        sendMessage(message)
+        sendMessage(message);
       }
-      isTyping();
+      isTyping(e);
     }
   },[message])
 
@@ -330,14 +330,19 @@ function App() {
   // receives from backend
   useEffect(()=> {
     socket.on('isTypingIndicator', (data) => {
+      console.log('ks',data.ks);
         if (data.user != subject && subject) {
           document.getElementById("is-typing").classList.remove("hidden");
           // add a 5000 ms delay so it doesn't go away the moment they stop typing
           clearTimeout(typingTimeout);
+          if (data.ks === "Enter") {
+            document.getElementById("is-typing").classList.add("hidden");
+          } else {
           typingTimeout = setTimeout(function(){
             document.getElementById("is-typing").classList.add("hidden");
           }, 5000)
-        }
+        }}
+        
     })
   },[subject])
   
@@ -355,8 +360,9 @@ function App() {
   }
 
   // sends to back
-  function isTyping () {
-    socket.emit("isTypingIndicator", {signal: {user: subject, data: message}, room: room});
+  function isTyping (e) {
+    console.log('e', e, e.code)
+    socket.emit("isTypingIndicator", {signal: {user: subject, data: message, ks: e.code}, room: room});
   }
 
   // end study and redrect
