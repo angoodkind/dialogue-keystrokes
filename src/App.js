@@ -312,7 +312,7 @@ function App() {
         updateScroll();
       })
     }
-  },[])
+  },[subject])
 
   // look for keypresses
   // - any keypress = typing indicator

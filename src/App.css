@@ -142,7 +142,7 @@ li:not(:last-child) {
   /* border: black 1px solid; */
 }
 
-/* animate elipses after typing indicator */
+/* animate ellipsis after typing indicator */
 #is-typing:after {
   overflow: hidden;
   display: inline-block;
