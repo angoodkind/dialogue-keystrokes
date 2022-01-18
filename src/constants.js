@@ -27,10 +27,11 @@ const prompt1Text = (
       </li>
       <li>
         Do not hesitate to express strong opinions, about genres, actors, etc. you especially like or don’t like.
-        Try your best to not provide any “spoilers.”
+        Thoroughly engaging with your partner is the whole point, so have fun!
       </li>
       <li>
         You will have 8 minutes to discuss the prompt below, and a warning will appear when there is 1 minute left.
+        Please make sure to make FULL use of ALL 8 minutes.
       </li>
     </ul>
       <p style={{backgroundColor:'gainsboro',
@@ -52,10 +53,11 @@ const prompt2Text = (
       </li>
       <li>
         Do not hesitate to express strong opinions, about genres, actors, etc. you especially like or don’t like.
-        Try your best to not provide any “spoilers.”
+        Thoroughly engaging with your partner is the whole point, so have fun!
       </li>
       <li>
         You will have 8 minutes to discuss the prompt below, and a warning will appear when there is 1 minute left.
+        Please make sure to make FULL use of ALL 8 minutes.
       </li>
     </ul>
       <p style={{backgroundColor:'gainsboro',
