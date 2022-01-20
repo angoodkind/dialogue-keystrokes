@@ -3,7 +3,8 @@ import openSocket from 'socket.io-client';
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
-import * as constants from './constants';
+import * as prompt_info from './prompt-info';
+import * as fb_login from './firebase-login;'
 import $ from "jquery"; // For using jquery-confirm
 import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
@@ -24,10 +25,10 @@ var experimentStartTime = "";
 var typingTimeout = null;
 
 // Must configure firebase before using its services
-firebase.initializeApp(constants.firebaseConfig);
+firebase.initializeApp(fb_login.firebaseConfig);
 
 // Open a connection to the socket.io server 
-const socket = openSocket(`${constants.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
+const socket = openSocket(`${fb_login.ec2Base}:8080`, {rejectUnauthorized: false, transports: ['websocket']});
 
 function App() {
 
@@ -85,7 +86,7 @@ function App() {
 
   function onMessage(event) {
     // Check sender origin to be trusted
-    if (event.origin !== `${constants.ec2Base}:9000`) return;
+    if (event.origin !== `${fb_login.ec2Base}:9000`) return;
     setProlific(event.data.message);
   }
 
@@ -185,12 +186,12 @@ function App() {
   useEffect(()=> {
     if (prompt > 0) {
       const timer = setTimeout(() => {
-        if (prompt < constants.prompts.length-1) {
+        if (prompt < prompt_info.prompts.length-1) {
           // When the time is up, increment the prompt state variable.
           setPrompt(prompt + 1);
         }
         // Time length of prompt 
-      }, constants.prompts[prompt].promptTime);
+      }, prompt_info.prompts[prompt].promptTime);
       return () => {
         clearTimeout(timer);
       };
@@ -214,11 +215,11 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": null
       }
-      if (nodeName != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
+      if (nodeName != null && prolificID != null && prompt_info.prompts[prompt].promptNum > 0) {
         // Map the keystroke to its latest firebase node.
-        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/subject' +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys').push().key}));
+        setKeystrokes(Object.assign(keystrokes, {[e.code]: firebase.database().ref('prod/' + nodeName + '/subject' +  subject+'_'+prolificID + '/prompt' + prompt_info.prompts[prompt].promptNum + '/keys').push().key}));
         // Write the info object to that location.
-        firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info); 
+        firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + prompt_info.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info); 
         console.log("After down: ", keystrokes)
       }
     }
@@ -232,10 +233,10 @@ function App() {
         "existingTextMessage": message,
         "visibleTextKeystroke": (e.key.length === 1 || e.code === "Backspace" ? e.key : null),
       }
-      if (nodeName != null && prolificID != null && constants.prompts[prompt].promptNum > 0) {
+      if (nodeName != null && prolificID != null && prompt_info.prompts[prompt].promptNum > 0) {
         // Retrieve the latest firebase node for the given keystroke.
         // Write the info object to that location.
-        firebase.database().ref('prod/' + nodeName + '/subject'  +  subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
+        firebase.database().ref('prod/' + nodeName + '/subject'  +  subject+'_'+prolificID + '/prompt' + prompt_info.prompts[prompt].promptNum + '/keys/' + keystrokes[[e.code]]).push(info).then(() => {
           console.log("In the middle: ", keystrokes);
           // Erase the association between the pressed key and specific firebase node
           setKeystrokes(Object.assign(keystrokes, {[e.code]: null}));
@@ -248,9 +249,9 @@ function App() {
 
 
   useEffect(()=> {
-    if (sends != null && sends.from === subject && constants.prompts[prompt].promptNum > 0) {
+    if (sends != null && sends.from === subject && prompt_info.prompts[prompt].promptNum > 0) {
       // "Sends" is an object storing the information for chats about to be sent. 
-      firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + constants.prompts[prompt].promptNum + '/sends').push(sends)
+      firebase.database().ref('prod/' + nodeName + '/subject' + subject+'_'+prolificID + '/prompt' + prompt_info.prompts[prompt].promptNum + '/sends').push(sends)
     }
   },[sends])
 
@@ -367,7 +368,7 @@ function App() {
 
   // end study and redrect
   useEffect(()=> {
-    if (prompt >= constants.prompts.length-1) {
+    if (prompt >= prompt_info.prompts.length-1) {
       console.log('Done with prompts');
       window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
     }
@@ -376,7 +377,7 @@ function App() {
 
   const renderer = ({ minutes, seconds }) => {
     // no timer before both subjects start
-    if (constants.prompts[prompt].promptNum == 0) {
+    if (prompt_info.prompts[prompt].promptNum == 0) {
       return <span></span>;
     }
     // start timer when both subjects join (prompt moves to 1)
@@ -416,7 +417,7 @@ function App() {
       <div className="promptbox">
           {/* a countdown timer that runs throughout the experiment*/}
           <div id="timer">
-            {constants.prompts[prompt].promptNum == 0 ? 
+            {prompt_info.prompts[prompt].promptNum == 0 ? 
               <span></span> : 
               <Countdown date={experimentStartTime + (16*60000)}
               renderer={renderer}
@@ -425,7 +426,7 @@ function App() {
           </div>
           {/* Display the prompt based on which prompt you're on: */}
           <div id="prompttext">
-            {constants.prompts[prompt].promptText}
+            {prompt_info.prompts[prompt].promptText}
           </div>
       </div>
     </div>

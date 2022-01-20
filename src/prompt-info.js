@@ -1,21 +1,10 @@
-export const firebaseConfig = {
-
-    apiKey: "AIzaSyBWJmpNZvlexkgSRvCi9IGe4ZZFGgaE9sc",
-    authDomain: "keystroke-dialogue.firebaseapp.com",
-    projectId: "keystroke-dialogue",
-    storageBucket: "keystroke-dialogue.appspot.com",
-    messagingSenderId: "258869565916",
-    appId: "1:258869565916:web:a5388f1b8ec7ee25709719"
-  };
-
-export const ec2Base = 'http://ec2-18-223-160-60.us-east-2.compute.amazonaws.com'
 
 /* JSX strings need to be wrapped in parent (div?) tags */
 const prompt0Text = (
   <div> 
    <p style={{fontSize:'25px'}}>Waiting for your partner, Pat, to join...</p>
    <p style={{color:'red',fontSize:'18px'}}><strong>*PLEASE DO NOT ENTER ANY TEXT. IT WILL NOT BE SEEN.*</strong></p>
-   <p>If your partner does not join after 5 minutes, please exit the study and email movie-study@u.northwestern.edu.</p>
+   <p>If your partner does not join after 10 minutes, please exit the wondow, return the study, and message the researchers on Prolific.</p>
   </div>
 );
 
