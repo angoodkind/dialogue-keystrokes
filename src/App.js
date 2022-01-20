@@ -4,7 +4,7 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import * as prompt_info from './prompt-info';
-import * as fb_login from './firebase-login;'
+import * as fb_login from './firebase-login';
 import $ from "jquery"; // For using jquery-confirm
 import 'jquery-confirm'; // for customizable alert popup
 import "jquery-confirm/dist/jquery-confirm.min.css";
