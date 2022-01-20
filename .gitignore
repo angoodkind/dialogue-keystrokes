@@ -26,4 +26,4 @@ package-lock.json
 # firebase
 .firebasesrc
 firebase.json
-firebase-login.js
+# firebase-login.js
