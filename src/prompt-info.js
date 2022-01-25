@@ -40,15 +40,17 @@ const prompt2Text = (
   <div>
     <ul>
       <li>
-        Alex, now get to know Pat's tastes first. What kinds of movies or TV shows do they like and dislike?
+        Alex, now get to know Pat's tastes first.  What kinds of movies or TV shows do they like and dislike?
+        If you agree or disagree, why do you feel that way?
       </li>
       <li>
-        Do not hesitate to express strong opinions, about genres, actors, etc. you especially like or don’t like.
-        Thoroughly engaging with your partner is the whole point, so have fun!
+        Do not hesitate to express strong opinions about genres, actors, etc. you especially like or don’t like.
+        Thoroughly engaging with your partner is the whole point, so have fun! 
       </li>
       <li>
-        You will have 8 minutes to discuss the prompt below, and a warning will appear when there is 1 minute left.
+        You will have 8 minutes to discuss the prompt below.
         Please make sure to make FULL use of ALL 8 minutes.
+        Keep the conversation active and lively, with shorter messages, as if you were texting a friend!
       </li>
     </ul>
       <p style={{backgroundColor:'gainsboro',
