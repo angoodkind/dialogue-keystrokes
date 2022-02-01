@@ -4,7 +4,16 @@ const prompt0Text = (
   <div> 
    <p style={{fontSize:'25px'}}>Waiting for your partner, Pat, to join...</p>
    <p style={{color:'red',fontSize:'18px'}}><strong>*PLEASE DO NOT ENTER ANY TEXT. IT WILL NOT BE SEEN.*</strong></p>
-   <p>If your partner does not join after 10 minutes, please exit the wondow, return the study, and message the researchers on Prolific.</p>
+   <p>
+     <ul>
+       <li>
+       If your partner does not join after a few minutes, try exiting the window and re-entering.
+       </li>
+       <li>
+       If no one still shows up after a few minutes, exit the wondow, return the study, and message the researchers. You will be compensated for your time.
+       </li>
+     </ul>
+    </p>
   </div>
 );
 
