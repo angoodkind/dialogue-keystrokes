@@ -366,11 +366,11 @@ function App() {
     socket.emit("isTypingIndicator", {signal: {user: subject, data: message, ks: e.code}, room: room});
   }
 
-  // end study and redrect
+  // end study and redirect
   useEffect(()=> {
     if (prompt >= prompt_info.prompts.length-1) {
       console.log('Done with prompts');
-      window.location.href = "https://forms.gle/ipvyLHKwNCFLnNsN8"
+      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSeWT2BgsGyhJa4ktgKGJfjvxZiLtuazBZ9F2HC_-94VDhrefw/viewform?usp=sf_link"
     }
   },[prompt])
 

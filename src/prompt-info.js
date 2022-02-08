@@ -7,10 +7,7 @@ const prompt0Text = (
    <p>
      <ul>
        <li>
-       If your partner does not join after a few minutes, try exiting the window and re-entering.
-       </li>
-       <li>
-       If no one still shows up after a few minutes, exit the wondow, return the study, and message the researchers. You will be compensated for your time.
+       If no one shows up after 5-10 minutes, exit the wondow, return the study, and message the researchers. You will be compensated for your time.
        </li>
      </ul>
     </p>
